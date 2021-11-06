@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrannysQueue", "GrannysQueu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserAsking", "UserAsking\UserAsking.csproj", "{84D629E8-0F6C-4105-BDD7-4E73F66395D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageOutput", "MessageOutput\MessageOutput.csproj", "{FE04FFD9-5B50-4BF6-88A6-4F9C6BDB3746}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{84D629E8-0F6C-4105-BDD7-4E73F66395D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84D629E8-0F6C-4105-BDD7-4E73F66395D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84D629E8-0F6C-4105-BDD7-4E73F66395D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE04FFD9-5B50-4BF6-88A6-4F9C6BDB3746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE04FFD9-5B50-4BF6-88A6-4F9C6BDB3746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE04FFD9-5B50-4BF6-88A6-4F9C6BDB3746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE04FFD9-5B50-4BF6-88A6-4F9C6BDB3746}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
