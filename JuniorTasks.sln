@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExitMessage", "ExitMessage\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Converter", "Converter\Converter.csproj", "{84039CA9-02FF-411A-91E4-486111F49512}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandApplicarion", "CommandApplicarion\CommandApplicarion.csproj", "{4229ED9C-0612-47AB-B623-F57890E2E89D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{84039CA9-02FF-411A-91E4-486111F49512}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84039CA9-02FF-411A-91E4-486111F49512}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84039CA9-02FF-411A-91E4-486111F49512}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4229ED9C-0612-47AB-B623-F57890E2E89D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4229ED9C-0612-47AB-B623-F57890E2E89D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4229ED9C-0612-47AB-B623-F57890E2E89D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4229ED9C-0612-47AB-B623-F57890E2E89D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
