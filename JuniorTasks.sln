@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandApplicarion", "Comma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chars", "Chars\Chars.csproj", "{D13B58AA-86F2-42EB-B648-91D8ACA8D08F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringOutput", "StringOutput\StringOutput.csproj", "{F2AFE2F5-4A5B-422C-B1F1-803579127298}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +62,9 @@ Global
 		{D13B58AA-86F2-42EB-B648-91D8ACA8D08F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D13B58AA-86F2-42EB-B648-91D8ACA8D08F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D13B58AA-86F2-42EB-B648-91D8ACA8D08F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2AFE2F5-4A5B-422C-B1F1-803579127298}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2AFE2F5-4A5B-422C-B1F1-803579127298}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2AFE2F5-4A5B-422C-B1F1-803579127298}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2AFE2F5-4A5B-422C-B1F1-803579127298}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
