@@ -8,14 +8,16 @@ namespace GrannysQueue
         {
             int numberOfGrannys;
             int timeOfReceipt = 10;
+            int minutesAtHour = 60;
 
             Console.WriteLine("Введите кол-во старушек: ");
             numberOfGrannys = Convert.ToInt32(Console.ReadLine());
 
             int totalMinutes = numberOfGrannys * timeOfReceipt;
-            int minutesBeforeAdmission = totalMinutes % 60;
+            int hourBeforeAdmission = totalMinutes / minutesAtHour;
+            int minutesBeforeAdmission = totalMinutes % minutesAtHour;
 
-            Console.WriteLine("Вы должны отстоять в очереди "+ (totalMinutes / 60) +" часа и "+ minutesBeforeAdmission +" минут." );
+            Console.WriteLine("Вы должны отстоять в очереди "+ hourBeforeAdmission +" часа и "+ minutesBeforeAdmission +" минут." );
         }
     }
 }
