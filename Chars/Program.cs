@@ -10,8 +10,9 @@ namespace Chars
 
             int maxValue = 98;
             int step = 7;
+            int firstChar = 7;
             
-            for (int i = 7; i <= maxValue; i = i + 7)
+            for (int i = firstChar; i <= maxValue; i += step)
             {
                 Console.Write(i + " ");
             }
