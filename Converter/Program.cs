@@ -10,8 +10,8 @@ namespace Converter
             double usdWallet;
             double eurWallet;
 
-            double usdCourse = 72.4;
-            double eurCourse = 84.2;
+            double usdToRub = 72.4;
+            double eurToRub = 84.2;
 
             bool isExit = false;
 
@@ -28,132 +28,128 @@ namespace Converter
                 Console.WriteLine("1 - конвертация рублей | 2 - конвертация долларов | 3 - конвертация евро");
 
                 double amountToConvert = 0;
-                
+
                 string answer = Console.ReadLine();
-                
+
                 switch (answer)
                 {
                     case "1":
-                        
+
                         Console.WriteLine("В какую валюту конвертировать?");
                         Console.WriteLine("1 - в доллары | 2 - в евро");
-                        
+
                         switch (Console.ReadLine())
                         {
                             case "1":
-                                do
+
+                                Console.WriteLine("Сколько вы хотите перевести?");
+                                amountToConvert = Convert.ToDouble(Console.ReadLine());
+                                if (rubWallet - amountToConvert < 0)
                                 {
-                                    Console.WriteLine("Сколько вы хотите перевести?");
-                                    amountToConvert = Convert.ToDouble(Console.ReadLine());
-                                    if (rubWallet - amountToConvert < 0)
-                                    {
-                                        Console.WriteLine("Недостаточно сресдтв");
-                                    }
-                                } while (rubWallet - amountToConvert < 0);
+                                    Console.WriteLine("Недостаточно сресдтв");
+                                    break;
+                                }
                                 
                                 rubWallet -= amountToConvert;
-                                amountToConvert /= usdCourse;
-                                usdWallet += amountToConvert;
+                                usdWallet += amountToConvert / usdToRub;
+                                
                                 break;
                             case "2":
-                                do
+                                Console.WriteLine("Сколько вы хотите перевести?");
+                                amountToConvert = Convert.ToDouble(Console.ReadLine());
+                                if (rubWallet - amountToConvert < 0)
                                 {
-                                    Console.WriteLine("Сколько вы хотите перевести?");
-                                    amountToConvert = Convert.ToDouble(Console.ReadLine());
-                                    if (rubWallet - amountToConvert < 0)
-                                    {
-                                        Console.WriteLine("Недостаточно сресдтв");
-                                    }
-                                } while (rubWallet - amountToConvert < 0);
+                                    Console.WriteLine("Недостаточно сресдтв");
+                                    break;
+                                }
+
                                 rubWallet -= amountToConvert;
-                                amountToConvert /= eurCourse;
-                                eurCourse += amountToConvert;
+                                eurToRub += amountToConvert / eurToRub;
                                 break;
                             default:
                                 Console.WriteLine("Не верный ввод");
                                 break;
                         }
+
                         break;
                     case "2":
-                        
+
                         Console.WriteLine("В какую валюту конвертировать?");
                         Console.WriteLine("1 - в рубли | 2 - в евро");
-                       
+
                         switch (Console.ReadLine())
                         {
                             case "1":
-                                do
+
+                                Console.WriteLine("Сколько вы хотите перевести?");
+                                amountToConvert = Convert.ToDouble(Console.ReadLine());
+                                if (usdWallet - amountToConvert < 0)
                                 {
-                                    Console.WriteLine("Сколько вы хотите перевести?");
-                                    amountToConvert = Convert.ToDouble(Console.ReadLine());
-                                    if (usdWallet - amountToConvert < 0)
-                                    {
-                                        Console.WriteLine("Недостаточно сресдтв");
-                                    }
-                                } while (usdWallet - amountToConvert < 0);
+                                    Console.WriteLine("Недостаточно сресдтв");
+                                    break;
+                                }
                                 
                                 usdWallet -= amountToConvert;
-                                amountToConvert *= usdCourse;
-                                usdWallet += amountToConvert;
+                                usdWallet += amountToConvert * usdToRub;
                                 break;
                             case "2":
-                                do
+
+                                Console.WriteLine("Сколько вы хотите перевести?");
+                                amountToConvert = Convert.ToDouble(Console.ReadLine());
+                                if (usdWallet - amountToConvert < 0)
                                 {
-                                    Console.WriteLine("Сколько вы хотите перевести?");
-                                    amountToConvert = Convert.ToDouble(Console.ReadLine());
-                                    if (usdWallet - amountToConvert < 0)
-                                    {
-                                        Console.WriteLine("Недостаточно сресдтв");
-                                    }
-                                } while (usdWallet - amountToConvert < 0);
+                                    Console.WriteLine("Недостаточно сресдтв");
+                                    break;
+                                }
                                 
                                 usdWallet -= amountToConvert;
-                                amountToConvert = amountToConvert * usdCourse / eurCourse;
-                                usdWallet += amountToConvert;
+                                usdWallet += amountToConvert * usdToRub / eurToRub;
                                 break;
                             default:
                                 Console.WriteLine("Не верный ввод");
                                 break;
                         }
+
                         break;
                     case "3":
-                        
+
                         Console.WriteLine("В какую валюту конвертировать?");
                         Console.WriteLine("1 - в рубли | 2 - в доллары");
-                       
+
                         switch (Console.ReadLine())
                         {
                             case "1":
-                                do
+
+                                Console.WriteLine("Сколько вы хотите перевести?");
+                                amountToConvert = Convert.ToDouble(Console.ReadLine());
+                                if (eurWallet - amountToConvert < 0)
                                 {
-                                    Console.WriteLine("Сколько вы хотите перевести?");
-                                    amountToConvert = Convert.ToDouble(Console.ReadLine());
-                                    if (eurWallet - amountToConvert < 0)
-                                    {
-                                        Console.WriteLine("Недостаточно сресдтв");
-                                    }
-                                } while (eurWallet - amountToConvert < 0);
+                                    Console.WriteLine("Недостаточно сресдтв");
+                                    break;
+                                }
                                 
                                 eurWallet -= amountToConvert;
-                                amountToConvert *= eurCourse;
-                                eurWallet += amountToConvert;
+                                eurWallet += amountToConvert * eurToRub;
+                                
                                 break;
                             case "2":
-                                if(eurWallet - amountToConvert < 0)
+                                if (eurWallet - amountToConvert < 0)
                                     return;
+                                
                                 eurWallet -= amountToConvert;
-                                amountToConvert = amountToConvert * eurCourse / usdCourse;
-                                eurWallet += amountToConvert;
+                                eurWallet += amountToConvert * eurToRub / usdToRub;
                                 break;
                             default:
                                 Console.WriteLine("Не верный ввод");
                                 break;
                         }
+
                         break;
                     default:
                         Console.WriteLine("Не верный ввод");
                         break;
                 }
+
                 Console.WriteLine("рублей: {0} | долларов: {1} | евро: {2}", rubWallet, usdWallet, eurWallet);
             }
         }
