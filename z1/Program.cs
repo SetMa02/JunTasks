@@ -7,13 +7,13 @@ namespace z1
         static void Main(string[] args)
         {
             int photos = 52;
-            int countAtOneRow = 3;
+            int photosAtRow = 3;
 
-            int rowsCount = photos / countAtOneRow;
-            int overflowCount = photos % countAtOneRow;
+            int photoRowsCount = photos / photosAtRow;
+            int overflowPhotoCount = photos % photosAtRow;
 
-            Console.WriteLine("Заполнится рядов - " + rowsCount);
-            Console.WriteLine("Картинок сверх меры - " + overflowCount);
+            Console.WriteLine("Заполнится рядов - " + photoRowsCount);
+            Console.WriteLine("Картинок сверх меры - " + overflowPhotoCount);
             
             Console.ReadLine();
         }
