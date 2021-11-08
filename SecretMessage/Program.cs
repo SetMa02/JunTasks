@@ -10,8 +10,9 @@ namespace SecretMessage
             string password = "junior";
             string userInputPassword;
             int countOfTrys = 3;
+            bool isExit = false;
 
-            while (true)
+            while (isExit == false)
             {
                 Console.WriteLine("Введите пароль:");
                 userInputPassword = Console.ReadLine();
@@ -20,7 +21,11 @@ namespace SecretMessage
 
                     Console.WriteLine("\nДоступ разрешен: \n");
                     Console.WriteLine(secretMessage);
-                    break;
+                    isExit = true;
+                }
+                else if (userInputPassword == "exit")
+                {
+                    isExit = true;
                 }
                 else
                 {
@@ -28,7 +33,7 @@ namespace SecretMessage
                     if (countOfTrys == 0)
                     {
                         Console.WriteLine("Доступ зепрещен");
-                        break;
+                        isExit = true;
                     }
                     Console.WriteLine($"у вас осталось {countOfTrys} попыток в запасе");
                 }
