@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BossFight", "BossFight\Boss
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecSumm", "SecSumm\SecSumm.csproj", "{1BCCAF48-0E44-4E77-9BCE-C1FDE14C8A20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixTom10", "MatrixTom10\MatrixTom10.csproj", "{BBC0AFEC-4A0D-4960-A44F-4B0B58E59D2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -84,5 +86,9 @@ Global
 		{1BCCAF48-0E44-4E77-9BCE-C1FDE14C8A20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BCCAF48-0E44-4E77-9BCE-C1FDE14C8A20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BCCAF48-0E44-4E77-9BCE-C1FDE14C8A20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBC0AFEC-4A0D-4960-A44F-4B0B58E59D2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBC0AFEC-4A0D-4960-A44F-4B0B58E59D2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBC0AFEC-4A0D-4960-A44F-4B0B58E59D2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBC0AFEC-4A0D-4960-A44F-4B0B58E59D2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
