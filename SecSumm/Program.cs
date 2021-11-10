@@ -16,32 +16,27 @@ namespace SecSumm
                 for (int j = 0; j < massive.GetLength(1); j++)
                 {
                     massive[i, j] = random.Next(0, 100);
-                    Console.Write( massive[i, j] +" ");
+                    Console.Write(massive[i, j] + " ");
                 }
+
                 Console.WriteLine();
             }
-            
+
             Console.WriteLine("=========");
 
-            for (int i = 0; i < massive.GetLength(0); i++)
-            {
-                for (int j = 0; j < massive.GetLength(1); j++)
-                {
-                    if (j == 0)
-                    {
-                        firstProizv *= massive [i, j];
-                    }
 
-                    if (i == 1)
-                    {
-                        secondSumm += massive[i, j];
-                    }
-                    
-                }
-               
+            for (int j = 0; j < massive.GetLength(1); j++)
+            {
+                secondSumm += massive[1, j];
             }
-            Console.WriteLine( firstProizv + " - Произведение первого столбца");
-            Console.WriteLine( secondSumm + " - Сумма второй строки");
+            
+            for (int j = 0; j < massive.GetLength(1); j++)
+            {
+                firstProizv *= massive[j, 0];
+            }
+
+            Console.WriteLine(firstProizv + " - Произведение первого столбца");
+            Console.WriteLine(secondSumm + " - Сумма второй строки");
         }
     }
 }
