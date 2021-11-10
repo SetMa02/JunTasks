@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading;
 
 namespace BossFight
@@ -18,115 +19,40 @@ namespace BossFight
             string enterSpell;
 
             Console.WriteLine(
-                "Передвами стоит огромный огр он настроен агресивно избежать драки не возможно приготовтесь к бою. \n Ваши доступные заклинания: \n" +
-                "1) fireball - Огненый шар наносит 50 урона, отнимает 30 едениц маны.\n" +
-                "2) sourcelife - Востанавливает игроку по 20 ХП в течении 3 секунд урон босса не проходит, отнимает 50 единиц маны.\n" +
-                "3) lightningstrike - Удар молнией наносит 100 урона, отнимает 45 едениц маны.\n" +
-                "4) toxicsmoke - Создается ядовитое облако и наносит 20 урона в течении 3 секунд, отнимает 60 единиц маны.\n");
+                "Передвами стоит огромный ДедИнсайд он настроен агресивно избежать драки не возможно приготовтесь к битве. \n Ваши доступные заклинания: \n" +
+                "1) sunlight - Ослеплеющий свет, станит противника на 2 хода, отнимает 30 едениц маны.\n" +
+                "2) meditation - Востанавливает игроку 100 ХП и 50 единиц маны, игрок не может применять атакующие спелы 1 ход\n" +
+                "3) lightningstrike - Удар молнией наносит 100 урона, пробуждает ослепленного врага, отнимает 45 едениц маны.\n" +
+                "4) toxicsmoke - Создается ядовитое облако и наносит 20 урона или, если враг ослеплен 50, в течении 5ти ходов, отнимает 60 единиц маны.\n");
 
             while (enableGame)
             {
-                if (healthBoss <= 0)
-                {
-                    Console.WriteLine("Босс Сдох!");
-                    enableGame = false;
-                }
-                else if (healthPlayer <= 0)
-                {
-                    Console.WriteLine("Игрок Сдох!");
-                    enableGame = false;
-                }
-                else
-                {
-                    Console.WriteLine(
-                        "Статистика Боса: \n Здоровье: {0} , Урон: {1} \n\nСтатистика игрока: \n Здоровье: {2} , Мана: {3} \n",
-                        healthBoss, damageBoss, healthPlayer, manaPlayer);
-                    Console.WriteLine("Введите заклинание: ");
-                    enterSpell = Console.ReadLine();
-
-                    switch (enterSpell)
-                    {
-                        case "fireball":
-                            if (manaPlayer >= 30)
-                            {
-                                healthBoss -= 50;
-                                manaPlayer -= 30;
-                            }
-                            else
-                            {
-                                Console.WriteLine("У вас не достаточно маны!");
-                            }
-
-                            break;
-                        case "sourcelife":
-                            if (manaPlayer >= 50)
-                            {
-                                for (int i = 0; i < 3; i++)
-                                {
-                                    if (healthPlayer <= 250)
-                                    {
-                                        healthPlayer += 20;
-                                        Thread.Sleep(1000);
-                                        Console.WriteLine("Ваше текущее здоровье равно: {0}/250", healthPlayer);
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("У вас полный запас здоровья!");
-                                    }
-                                }
-
-                                manaPlayer -= 50;
-                            }
-                            else
-                            {
-                                Console.WriteLine("У вас не достаточно маны!");
-                            }
-
-                            break;
-                        case "lightningstrike":
-                            if (manaPlayer >= 45)
-                            {
-                                healthBoss -= 100;
-                                manaPlayer -= 45;
-                            }
-                            else
-                            {
-                                Console.WriteLine("У вас не достаточно маны!");
-                            }
-
-                            break;
-                        case "toxicsmoke":
-                            if (manaPlayer >= 50)
-                            {
-                                for (int i = 0; i < 3; i++)
-                                {
-                                    healthBoss -= 35;
-                                    Thread.Sleep(1000);
-                                    Console.WriteLine("Урон по босу ядом: {0}", healthBoss);
-                                }
-
-                                manaPlayer -= 50;
-                            }
-                            else
-                            {
-                                Console.WriteLine("У вас не достаточно маны!");
-                            }
-
-                            break;
-                        case "killboss":
-                            healthBoss -= healthBoss + 10;
-                            break;
-                        default:
-                            Console.WriteLine("Вы не знаетете {0} это заклинания или вы произнесли его не правильно.",
-                                enterSpell);
-                            break;
-                    }
-
-                    healthPlayer -= damageBoss;
-                    healthBoss += 10;
-                    manaPlayer += 15;
-                }
+                
             }
+        }
+
+        private void PlayerTurn()
+        {
+            Console.WriteLine("Введите заклинание:");
+            switch (Console.ReadLine())
+            {
+                case "sunlight":
+                    break;
+                case "meditation":
+                    break;
+                case "lightningstrike":
+                    break;
+                case "toxicsmole":
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void SunLight()
+        {
+            PlayerTurn();
+            PlayerTurn();
         }
     }
 }
