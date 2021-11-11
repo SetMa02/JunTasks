@@ -25,12 +25,7 @@ namespace IcreasedMassive
 
                     Console.WriteLine("Сумма: " + arraySum);
                 }
-                else if (input.ToLower() == "amount")
-                {
-                    Console.WriteLine(array.Sum());
-                    double[] arrayClear = new double[0];
-                    array = arrayClear;
-                }
+             
                 else if (input.ToLower() == "exit")
                 {
                     exit = true;

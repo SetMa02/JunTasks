@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalMax", "LocalMax\LocalM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IcreasedMassive", "IcreasedMassive\IcreasedMassive.csproj", "{6C76B206-F282-48F6-8B4A-3E1B59B5F1D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docie", "Docie\Docie.csproj", "{2C427CC2-F07C-476B-8330-BCF6442D6BD9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,5 +104,9 @@ Global
 		{6C76B206-F282-48F6-8B4A-3E1B59B5F1D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C76B206-F282-48F6-8B4A-3E1B59B5F1D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C76B206-F282-48F6-8B4A-3E1B59B5F1D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C427CC2-F07C-476B-8330-BCF6442D6BD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C427CC2-F07C-476B-8330-BCF6442D6BD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C427CC2-F07C-476B-8330-BCF6442D6BD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C427CC2-F07C-476B-8330-BCF6442D6BD9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
