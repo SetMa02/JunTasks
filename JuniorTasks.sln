@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecSumm", "SecSumm\SecSumm.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixTom10", "MatrixTom10\MatrixTom10.csproj", "{BBC0AFEC-4A0D-4960-A44F-4B0B58E59D2D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalMax", "LocalMax\LocalMax.csproj", "{D054E8FE-8DF5-44D4-A49E-5340F86B15A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -90,5 +92,9 @@ Global
 		{BBC0AFEC-4A0D-4960-A44F-4B0B58E59D2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBC0AFEC-4A0D-4960-A44F-4B0B58E59D2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBC0AFEC-4A0D-4960-A44F-4B0B58E59D2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D054E8FE-8DF5-44D4-A49E-5340F86B15A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D054E8FE-8DF5-44D4-A49E-5340F86B15A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D054E8FE-8DF5-44D4-A49E-5340F86B15A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D054E8FE-8DF5-44D4-A49E-5340F86B15A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
