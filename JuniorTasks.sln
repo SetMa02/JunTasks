@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docie", "Docie\Docie.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthBar", "HealthBar\HealthBar.csproj", "{28F92297-0B80-4FC8-9A87-378A064BB5E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConvertToDigit", "ConvertToDigit\ConvertToDigit.csproj", "{32B863FF-1CC0-4327-BADF-5CF44705032D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -114,5 +116,9 @@ Global
 		{28F92297-0B80-4FC8-9A87-378A064BB5E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28F92297-0B80-4FC8-9A87-378A064BB5E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28F92297-0B80-4FC8-9A87-378A064BB5E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32B863FF-1CC0-4327-BADF-5CF44705032D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32B863FF-1CC0-4327-BADF-5CF44705032D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32B863FF-1CC0-4327-BADF-5CF44705032D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32B863FF-1CC0-4327-BADF-5CF44705032D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
