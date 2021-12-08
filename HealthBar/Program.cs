@@ -11,8 +11,7 @@ namespace HealthBar
             bool isExit = false;
             int basicAttack = 10;
             int heavyAttack = 20;
-
-
+            
             while (isExit == false)
             {
                 Console.Clear();
@@ -26,10 +25,10 @@ namespace HealthBar
                 switch (Console.ReadLine())
                 {
                     case "1":
-                        BasicAttack(basicAttack,ref currentHealth);
+                       Attack(basicAttack,ref currentHealth);
                         break;
                     case "2":
-                       HeavyAttack(heavyAttack,ref currentHealth);
+                      Attack(heavyAttack,ref currentHealth);
                         break;
                     case "3":
                         isExit = true;
@@ -45,12 +44,12 @@ namespace HealthBar
                     isExit = true;
                 }
             }
-           
         }
 
         public static void ShowHealth(int currentHealth, int maxhealth)
         {
             Console.Write("[");
+
             for (int i = 0; i < currentHealth; i += 10)
             {
                 Console.Write("#");
@@ -62,15 +61,11 @@ namespace HealthBar
             Console.WriteLine("]");
         }
 
-        public static void BasicAttack(int damage,ref int currentHealth)
+        public static void Attack(int damage,ref int currentHealth)
         {
             currentHealth -= damage;
 
         }
         
-        public static void HeavyAttack(int damage,ref int currentHealth)
-        {
-            currentHealth -= damage;
-        }
     }
 }
