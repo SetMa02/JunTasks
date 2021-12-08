@@ -9,28 +9,30 @@ namespace ConvertToDigit
    
         static void Main(string[] args)
         {
-            int convertedDigit;
-            
-            ConvertToInt(out convertedDigit);
-            
-            Console.WriteLine(convertedDigit);
-        }
-
-        public static void ConvertToInt(out int Digit)
-        {
             bool isExit = false;
-            int inputDigit = 0;
-            
+            int convertedDigit;
             while (isExit == false)
             {
-                Console.Clear();
+               
                 Console.WriteLine("Введите число: ");
-
-                isExit = Int32.TryParse(Console.ReadLine(), out inputDigit);
-                
+                string input = Console.ReadLine();
+                if (input == "exit")
+                {
+                    return;
+                }
+                convertedDigit = ConvertToInt(input);
+                Console.WriteLine(convertedDigit);
             }
+        }
 
-            Digit = inputDigit;
+        public static int ConvertToInt(string input)
+        {
+            int outputDigit;
+            if (!Int32.TryParse(input, out outputDigit))
+            {
+                 Console.WriteLine("Преобразование не произошло");   
+            }
+            return outputDigit;
         }
     }
 }
