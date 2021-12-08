@@ -21,7 +21,6 @@ namespace LocalMax
             {
                 if (array[i] > array[i - 1] && array[i] > array[i + 1])
                     Console.Write(array[i]);
-
             }
             
             if (array[array.Length - 2] < array[array.Length - 1])
@@ -29,7 +28,6 @@ namespace LocalMax
                 Console.Write(array[array.Length-1]);
             }
             
-                
             Console.ReadKey();
         }
     }
