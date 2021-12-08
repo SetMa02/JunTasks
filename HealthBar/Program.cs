@@ -64,7 +64,6 @@ namespace HealthBar
         public static void Attack(int damage,ref int currentHealth)
         {
             currentHealth -= damage;
-
         }
         
     }
