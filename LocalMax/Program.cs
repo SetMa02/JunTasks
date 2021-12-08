@@ -17,26 +17,26 @@ namespace LocalMax
             if (array[0] > array[1])
                 Console.Write(array[0]);
             
-            Console.Write("  ");
-            
-            for (int i = 1; i <= array.Length; i++)
+            for (int i = 1; i <= array.Length -1 ; i++)
             {
-                if (i != array.Length)
+                if (i == array.Length - 1)
                 {
-                    if (array[i] > array[i - 1] && array[i] > array[i + 1])
+                    if (array[array.Length - 2] < array[array.Length - 1])
+                    {
+                        Console.Write(array[i] + "   ");
+                    }
+                }
+                else
+                {
+                    if (array[i] > array[i - 1] && array[i] > array[i+1])
                         Console.Write(array[i] + " ");
                     else
                         Console.Write("  ");
                 }
-                else
-                {
-                    if (array[i - 1] < array[i])
-                    {
-                        Console.Write(array[i] + "  ");
-                    }
-                }
                 
             }
+            
+          
             
                 
             Console.ReadKey();
