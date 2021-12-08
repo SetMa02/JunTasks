@@ -53,8 +53,14 @@ namespace Docie
             Console.Clear();
             Console.WriteLine("Введите фамилию сотрудника: ");
             string searchEmployee = Console.ReadLine();
-            int indexOfEmployee = Array.IndexOf(employee, searchEmployee);
-            Console.WriteLine(indexOfEmployee + 1 + ". " + employee[indexOfEmployee] + " - " + works[indexOfEmployee]);
+
+            for (int i = 0; i < employee.Length; i++)
+            {
+                if (employee[i] == searchEmployee)
+                {
+                    Console.WriteLine(i + 1 + ". " + employee[i] + " - " + works[i]);
+                }
+            }
         }
 
         public static void AddEmployee(ref string[] employee, ref string[] works)
@@ -79,7 +85,7 @@ namespace Docie
             }
 
             Console.Clear();
-            Console.WriteLine("Какого сотрудника удалить?");
+            Console.WriteLine("Введите номер сотрудника на удаление:");
             for (int i = 0; i < employee.Length; i++)
             {
                 Console.WriteLine(i + 1 + ". " + employee[i] + " - " + works[i]);
@@ -87,8 +93,22 @@ namespace Docie
 
             int indexToDelete = Convert.ToInt32(Console.ReadLine());
 
-            RemoveAt(ref employee, indexToDelete - 1);
-            RemoveAt(ref works, indexToDelete - 1);
+            string[] newEmployees = new string[employee.Length-1];
+            string[] newWorks = new string[employee.Length-1];
+
+            for (int i = 0; i < employee.Length-1; i++)
+            {
+                if (i == indexToDelete - 1)
+                {
+                }
+                else
+                {
+                    newEmployees[i] = employee[i];
+                    newWorks[i] = works[i];
+                }
+            }
+            employee = newEmployees;
+            works = newWorks;
         }
 
         public static void ShowEmploee(string[] employee, string[] works)
