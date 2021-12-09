@@ -81,34 +81,33 @@ namespace Docie
             if (employee.Length == 0)
             {
                 Console.WriteLine("Удалять нечего!");
-                return;
             }
-
-            Console.Clear();
-            Console.WriteLine("Введите номер сотрудника на удаление:");
-            for (int i = 0; i < employee.Length; i++)
+            else
             {
-                Console.WriteLine(i + 1 + ". " + employee[i] + " - " + works[i]);
-            }
-
-            int indexToDelete = Convert.ToInt32(Console.ReadLine());
-
-            string[] newEmployees = new string[employee.Length-1];
-            string[] newWorks = new string[employee.Length-1];
-
-            for (int i = 0; i < employee.Length-1; i++)
-            {
-                if (i == indexToDelete - 1)
+                Console.Clear();
+                Console.WriteLine("Введите номер сотрудника на удаление:");
+                for (int i = 0; i < employee.Length; i++)
                 {
+                    Console.WriteLine(i + 1 + ". " + employee[i] + " - " + works[i]);
                 }
-                else
+
+                int indexToDelete = Convert.ToInt32(Console.ReadLine());
+
+                string[] newEmployees = new string[employee.Length-1];
+                string[] newWorks = new string[employee.Length-1];
+
+                for (int i = 0; i < employee.Length-1; i++)
                 {
-                    newEmployees[i] = employee[i];
-                    newWorks[i] = works[i];
+                    if (i != indexToDelete - 1)
+                    {
+                        newEmployees[i] = employee[i];
+                        newWorks[i] = works[i];
+                    }
                 }
+                employee = newEmployees;
+                works = newWorks;
             }
-            employee = newEmployees;
-            works = newWorks;
+           
         }
 
         public static void ShowEmploee(string[] employee, string[] works)
@@ -116,26 +115,17 @@ namespace Docie
             if (employee.Length == 0)
             {
                 Console.WriteLine("Показывать нечего!");
-                return;
             }
-
-            Console.Clear();
-            for (int i = 0; i < employee.Length; i++)
+            else
             {
-                Console.WriteLine(i + 1 + ". " + employee[i] + " - " + works[i]);
+                Console.Clear();
+                for (int i = 0; i < employee.Length; i++)
+                {
+                    Console.WriteLine(i + 1 + ". " + employee[i] + " - " + works[i]);
+                }
+
+                Console.WriteLine();
             }
-
-            Console.WriteLine();
-        }
-
-        public static void RemoveAt<T>(ref T[] arrAy, int index)
-        {
-            for (int i = index; i < arrAy.Length - 1; i++)
-            {
-                arrAy[i] = arrAy[i + 1];
-            }
-
-            Array.Resize(ref arrAy, arrAy.Length - 1);
         }
     }
 }
