@@ -9,11 +9,11 @@ namespace ConvertToDigit
         static void Main(string[] args)
         {
             int convertedDigit;
-            convertedDigit = ConvertUserInputToInt();
+            convertedDigit = AskUserForDigit();
             Console.WriteLine(convertedDigit);
         }
 
-        public static int ConvertUserInputToInt()
+        public static int AskUserForDigit()
         {
             int outputDigit = 0;
             bool isExit = false;
