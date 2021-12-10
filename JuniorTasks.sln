@@ -46,6 +46,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordDescription", "WordDesc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustmerServices", "CustmerServices\CustmerServices.csproj", "{37562133-E851-4D9E-90A8-8F731CE01496}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListSumm", "ListSumm\ListSumm.csproj", "{72F30E13-040E-4EE1-93E3-102ED25E0D44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -144,5 +146,9 @@ Global
 		{37562133-E851-4D9E-90A8-8F731CE01496}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37562133-E851-4D9E-90A8-8F731CE01496}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37562133-E851-4D9E-90A8-8F731CE01496}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72F30E13-040E-4EE1-93E3-102ED25E0D44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72F30E13-040E-4EE1-93E3-102ED25E0D44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72F30E13-040E-4EE1-93E3-102ED25E0D44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72F30E13-040E-4EE1-93E3-102ED25E0D44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
