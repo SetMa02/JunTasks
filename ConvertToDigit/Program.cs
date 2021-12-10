@@ -6,32 +6,32 @@ namespace ConvertToDigit
 {
     class Program
     {
-   
         static void Main(string[] args)
         {
-            bool isExit = false;
             int convertedDigit;
-            while (isExit == false)
-            {
-               
-                Console.WriteLine("Введите число: ");
-                string input = Console.ReadLine();
-                if (input == "exit")
-                {
-                    return;
-                }
-                convertedDigit = ConvertToInt(input);
-                Console.WriteLine(convertedDigit);
-            }
+            convertedDigit = ConvertUserInputToInt();
+            Console.WriteLine(convertedDigit);
         }
 
-        public static int ConvertToInt(string input)
+        public static int ConvertUserInputToInt()
         {
-            int outputDigit;
-            if (!Int32.TryParse(input, out outputDigit))
+            int outputDigit = 0;
+            bool isExit = false;
+            string input;
+            while (isExit == false)
             {
-                 Console.WriteLine("Преобразование не произошло");   
+                Console.WriteLine("Введите число: ");
+                input = Console.ReadLine();
+                if (!Int32.TryParse(input, out outputDigit))
+                {
+                    Console.WriteLine("Преобразование не произошло");
+                }
+                else
+                {
+                    isExit = true;
+                }
             }
+
             return outputDigit;
         }
     }
