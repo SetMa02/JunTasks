@@ -6,91 +6,49 @@ namespace MapDrawing
     {
         static void Main(string[] args)
         {
-                //Сделать игровую карту с помощью двумерного массива.Сделать функцию рисования карты. 
-                //Помимо этого, дать пользователю возможность перемещаться по карте и взаимодействовать с элементами
-                //(например пользователь не может пройти сквозь стену)
-                //Все элементы являются обычными символами
- 
-            int sum = 0;
-            Console.CursorVisible = false;
+            int userScore = 0;
+            int userXPosition = 3, userYPosition = 3;
+            bool isExit = false;
             char[,] map =
             {
-                {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#' },
-                {'#',' ','!',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','#' },
-                {'#','X',' ','X',' ',' ',' ',' ',' ',' ','!',' ','X','!','#' },
-                {'#',' ',' ',' ',' ','#',' ','X',' ',' ',' ',' ',' ',' ','#' },
-                {'#',' ','!',' ',' ',' ',' ','!',' ',' ',' ',' ',' ',' ','#' },
-                {'#',' ',' ','#',' ','#',' ','#',' ',' ',' ',' ',' ',' ','#' },
-                {'#',' ',' ',' ',' ','#','X','#',' ',' ','!',' ',' ',' ','#' },
-                {'#',' ','#',' ',' ','#','#','#',' ',' ',' ',' ',' ',' ','#' },
-                {'#',' ',' ','X',' ',' ',' ',' ',' ',' ',' ',' ','X',' ','#' },
-                {'#',' ',' ',' ',' ','!',' ','#',' ','X','!',' ',' ',' ','#' },
-                {'#',' ','!',' ',' ','X',' ','!',' ',' ',' ',' ',' ',' ','#' },
-                {'#','X',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','#' },
-                {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#' },
+                {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+                {'#', ' ', '!', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
+                {'#', 'X', ' ', 'X', ' ', ' ', ' ', ' ', ' ', ' ', '!', ' ', 'X', '!', '#'},
+                {'#', ' ', ' ', ' ', ' ', '#', ' ', 'X', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
+                {'#', ' ', '!', ' ', ' ', ' ', ' ', '!', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
+                {'#', ' ', ' ', '#', ' ', '#', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
+                {'#', ' ', ' ', ' ', ' ', '#', 'X', '#', ' ', ' ', '!', ' ', ' ', ' ', '#'},
+                {'#', ' ', '#', ' ', ' ', '#', '#', '#', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
+                {'#', ' ', ' ', 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ', '#'},
+                {'#', ' ', ' ', ' ', ' ', '!', ' ', '#', ' ', 'X', '!', ' ', ' ', ' ', '#'},
+                {'#', ' ', '!', ' ', ' ', 'X', ' ', '!', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
+                {'#', 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
+                {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
             };
+            Console.CursorVisible = false;
             Console.SetCursorPosition(0, 15);
             Console.WriteLine("Соберите все Х. При касании ! игра заканчивается!");
             Console.SetCursorPosition(0, 0);
-            int userX = 3, userY = 3;
- 
-            while (true)
+
+
+            while (isExit == false)
             {
-                Draw(map, sum);
- 
-                Console.SetCursorPosition(userX, userY);
-                Console.Write('@');
- 
-                ConsoleKeyInfo charKey = Console.ReadKey();
- 
-                switch (charKey.Key)
-                {
-                    case ConsoleKey.LeftArrow:
-                        if (map[userY, userX - 1] != '#')
-                            userX--;
-                        break;
-                    case ConsoleKey.RightArrow:
-                        if (map[userY, userX + 1] != '#')
-                            userX++;
-                        break;
-                    case ConsoleKey.UpArrow:
-                        if (map[userY - 1, userX] != '#')
-                            userY--;
-                        break;
-                    case ConsoleKey.DownArrow:
-                        if (map[userY + 1, userX] != '#')
-                            userY++;
-                        break;
-                }
-                if (map[userY, userX] == 'X')
-                {
-                    map[userY, userX] = 'O';
- 
-                    sum += 1;
- 
-                    if (sum == 10)
-                    {
-                        Console.SetCursorPosition(20, 1);
-                        Console.WriteLine("Вы собрали все элементы");
-                        Console.ReadKey();
-                        break;
-                    }
-                }
-                else if (map[userY, userX] == '!')
-                {
-                    Console.SetCursorPosition(20, 3);
-                    Console.WriteLine("Проигрыш!!!");
-                    Console.ReadKey();
-                    break;
-                }
+                DrawMap(map, userScore);
+
+                Move(ref userXPosition, ref userYPosition, ref map);
+
+                CollectPoint(ref userXPosition, ref userYPosition, ref map, ref userScore, ref isExit);
+
+                DieFromWall(ref userXPosition, ref userYPosition, ref map, ref isExit);
             }
         }
-        static void Draw(char[,] map, int sum)
+
+        static void DrawMap(char[,] map, int sum)
         {
             Console.SetCursorPosition(20, 0);
             Console.Write("Счетчик: ");
             Console.Write(sum);
- 
+
             Console.SetCursorPosition(0, 0);
             for (int i = 0; i < map.GetLength(0); i++)
             {
@@ -98,7 +56,66 @@ namespace MapDrawing
                 {
                     Console.Write(map[i, j]);
                 }
+
                 Console.WriteLine();
+            }
+        }
+
+        static void Move(ref int userXPosition, ref int userYPosition, ref char[,] map)
+        {
+            Console.SetCursorPosition(userXPosition, userYPosition);
+            Console.Write('@');
+
+            ConsoleKeyInfo charKey = Console.ReadKey();
+
+            switch (charKey.Key)
+            {
+                case ConsoleKey.LeftArrow:
+                    if (map[userYPosition, userXPosition - 1] != '#')
+                        userXPosition--;
+                    break;
+                case ConsoleKey.RightArrow:
+                    if (map[userYPosition, userXPosition + 1] != '#')
+                        userXPosition++;
+                    break;
+                case ConsoleKey.UpArrow:
+                    if (map[userYPosition - 1, userXPosition] != '#')
+                        userYPosition--;
+                    break;
+                case ConsoleKey.DownArrow:
+                    if (map[userYPosition + 1, userXPosition] != '#')
+                        userYPosition++;
+                    break;
+            }
+        }
+
+        static void CollectPoint(ref int userXPosition, ref int userYPosition, ref char[,] map, ref int userScore,
+            ref bool isExit)
+        {
+            if (map[userYPosition, userXPosition] == 'X')
+            {
+                map[userYPosition, userXPosition] = 'O';
+
+                userScore += 1;
+
+                if (userScore == 10)
+                {
+                    Console.SetCursorPosition(20, 1);
+                    Console.WriteLine("Вы собрали все элементы");
+                    Console.ReadKey();
+                    isExit = true;
+                }
+            }
+        }
+
+        static void DieFromWall(ref int userXPosition, ref int userYPosition, ref char[,] map, ref bool isExit)
+        {
+            if (map[userYPosition, userXPosition] == '!')
+            {
+                Console.SetCursorPosition(20, 3);
+                Console.WriteLine("Проигрыш!!!");
+                Console.ReadKey();
+                isExit = true;
             }
         }
     }
