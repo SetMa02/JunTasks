@@ -6,16 +6,17 @@ namespace HealthBar
     {
         static void Main(string[] args)
         {
-            int currentHealth = 1000;
-            int maxHealth = 1000;
+            int currentHealth = 100;
+            int maxHealth = 100;
             bool isExit = false;
+            int step = 10;
             int basicAttack = 10;
             int heavyAttack = 20;
             
             while (isExit == false)
             {
                 Console.Clear();
-                ShowHealth(currentHealth, maxHealth);
+                DrawBar(currentHealth, maxHealth, step);
                 
                 Console.WriteLine("Бей! \n" +
                                   "1. Обычная атака \n" +
@@ -46,11 +47,11 @@ namespace HealthBar
             }
         }
 
-        public static void ShowHealth(int currentHealth, int maxhealth)
+        public static void DrawBar(int currentHealth, int maxhealth, int step)
         {
             Console.Write("[");
 
-            for (int i = 0; i < maxhealth; i += maxhealth/10)
+            for (int i = 0; i < maxhealth; i += maxhealth/step)
             {
                 if (currentHealth >= i)
                 {

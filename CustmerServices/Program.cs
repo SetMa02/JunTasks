@@ -16,7 +16,7 @@ namespace CustmerServices
             for (int i = 1; i <= qoueLength; i++)
             {
                 customers.Add(i,random.Next(10, 50000));
-            }
+            } 
 
             for (int i = 1; i <= qoueLength; i++)
             {
@@ -27,7 +27,7 @@ namespace CustmerServices
 
         private static void ServicingCustomer(ref Dictionary<int, int> customers, int currentCustomer, ref int wallet)
         {
-            Console.WriteLine("Покуавтель № " + currentCustomer + " С покупками на сумму - "  + customers[currentCustomer]);
+            Console.WriteLine("Покупатель № " + currentCustomer + " С покупками на сумму - "  + customers[currentCustomer]);
             Console.WriteLine("Нажмите любую кнопку чтобы обслужить");
             Console.ReadKey();
             wallet += customers[currentCustomer];
