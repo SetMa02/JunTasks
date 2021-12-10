@@ -6,8 +6,8 @@ namespace HealthBar
     {
         static void Main(string[] args)
         {
-            int currentHealth = 100;
-            int maxHealth = 100;
+            int currentHealth = 1000;
+            int maxHealth = 1000;
             bool isExit = false;
             int basicAttack = 10;
             int heavyAttack = 20;
@@ -50,14 +50,18 @@ namespace HealthBar
         {
             Console.Write("[");
 
-            for (int i = 0; i < currentHealth; i += 10)
+            for (int i = 0; i < maxhealth; i += maxhealth/10)
             {
-                Console.Write("#");
+                if (currentHealth >= i)
+                {
+                    Console.Write("#");
+                }
+                else
+                {
+                    Console.Write("-");
+                }
             }
-            for (int i = 0; i < (maxhealth - currentHealth); i += 10)
-            {
-                Console.Write("-");
-            }
+          
             Console.WriteLine("]");
         }
 
