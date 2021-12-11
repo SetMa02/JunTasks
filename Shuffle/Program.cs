@@ -19,11 +19,11 @@ namespace Shuffle
             Random random = new Random();
             for(int i = 0; i < 100; i++)
             {
-                int rndInd = random.Next(0, array.Count());
-                int rndInd2 = random.Next(0, array.Count());
-                int temp = array[rndInd];
-                array[rndInd] = array[rndInd2];
-                array[rndInd2] = temp;
+                int firstRandomIndex = random.Next(0, array.Length);
+                int secondRandomIndex = random.Next(0, array.Length);
+                int temp = array[firstRandomIndex];
+                array[firstRandomIndex] = array[secondRandomIndex];
+                array[secondRandomIndex] = temp;
             }
         }
     }
