@@ -7,31 +7,32 @@ namespace CustmerServices
     {
         static void Main(string[] args)
         {
-            int qoueLength = 10;
+            int queueLength = 10;
             int userWallet = 0;
-            Dictionary<int, int> customers = new Dictionary<int, int>();
+            Queue<int> customers = new Queue<int>();
             
             Random random = new Random();
 
-            for (int i = 1; i <= qoueLength; i++)
+            for (int i = 1; i <= queueLength; i++)
             {
-                customers.Add(i,random.Next(10, 50000));
-            } 
+                customers.Enqueue(random.Next(50,2000));
+            }
 
-            for (int i = 1; i <= qoueLength; i++)
+            foreach (var customer in customers)
             {
                 Console.WriteLine("Ваши денежки: " +userWallet);
-                ServicingCustomer(ref customers, i, ref userWallet);
+                userWallet += ServiceCustomer(customer);
             }
+            
         }
 
-        private static void ServicingCustomer(ref Dictionary<int, int> customers, int currentCustomer, ref int wallet)
+        private static int ServiceCustomer(int customer)
         {
-            Console.WriteLine("Покупатель № " + currentCustomer + " С покупками на сумму - "  + customers[currentCustomer]);
+            Console.WriteLine(" С покупками на сумму - "  + customer);
             Console.WriteLine("Нажмите любую кнопку чтобы обслужить");
             Console.ReadKey();
-            wallet += customers[currentCustomer];
             Console.Clear();
+            return customer;
         }
     }
 }
