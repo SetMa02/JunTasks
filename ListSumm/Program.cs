@@ -24,7 +24,16 @@ namespace ListSumm
                         isExit = true;
                         break;
                     default:
-                        listOfDigits.Add(Convert.ToInt32(input));
+                        int convertedDigit;
+                        if (Int32.TryParse(input, out convertedDigit))
+                        {
+                            listOfDigits.Add(convertedDigit);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Нельзя преобразовать");
+                        }
+
                         break;
                 }
             }
