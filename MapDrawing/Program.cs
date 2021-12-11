@@ -8,6 +8,7 @@ namespace MapDrawing
         {
             int userScore = 0;
             int userXPosition = 3, userYPosition = 3;
+            int pointToWin = 10;
             bool isExit = false;
             char[,] map =
             {
@@ -33,13 +34,19 @@ namespace MapDrawing
 
             while (isExit == false)
             {
+                string direction;
+                
                 DrawMap(map, userScore);
 
-                Move(ref userXPosition, ref userYPosition, ref map);
+                direction = GetDirection(userXPosition, userYPosition);
+                
+                MoveToDirection(direction, ref userXPosition, ref userYPosition, map);
 
-                CollectPoint(ref userXPosition, ref userYPosition, ref map, ref userScore, ref isExit);
+                CollectPoint(ref userXPosition, ref userYPosition, map, ref userScore);
+                
+                CheckUserPoints(ref isExit, userScore, pointToWin);
 
-                DieFromWall(ref userXPosition, ref userYPosition, ref map, ref isExit);
+                CheckWallCollide(ref userXPosition, ref userYPosition, map, ref isExit);
             }
         }
 
@@ -61,54 +68,74 @@ namespace MapDrawing
             }
         }
 
-        static void Move(ref int userXPosition, ref int userYPosition, ref char[,] map)
+        static string GetDirection(int userXPosition, int userYPosition)
         {
             Console.SetCursorPosition(userXPosition, userYPosition);
-            Console.Write('@');
-
-            ConsoleKeyInfo charKey = Console.ReadKey();
-
-            switch (charKey.Key)
+            Console.Write("@");
+            
+            switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.LeftArrow:
+                    return "left";
+                    break;
+                case ConsoleKey.RightArrow:
+                    return "right";
+                    break;
+                case ConsoleKey.UpArrow:
+                    return "up";
+                    break;
+                case ConsoleKey.DownArrow:
+                    return "down";
+                    break;
+            }
+            return null;
+        }
+
+        static void MoveToDirection(string direction,ref int userXPosition, ref int userYPosition, char[,] map)
+        {
+            
+            switch (direction)
+            {
+                case "left":
                     if (map[userYPosition, userXPosition - 1] != '#')
                         userXPosition--;
                     break;
-                case ConsoleKey.RightArrow:
+                case "right":
                     if (map[userYPosition, userXPosition + 1] != '#')
                         userXPosition++;
                     break;
-                case ConsoleKey.UpArrow:
+                case "up":
                     if (map[userYPosition - 1, userXPosition] != '#')
                         userYPosition--;
                     break;
-                case ConsoleKey.DownArrow:
+                case "down":
                     if (map[userYPosition + 1, userXPosition] != '#')
                         userYPosition++;
                     break;
             }
         }
 
-        static void CollectPoint(ref int userXPosition, ref int userYPosition, ref char[,] map, ref int userScore,
-            ref bool isExit)
+        static void CheckUserPoints(ref bool isExit, int userScore, int pointsToWin)
+        {
+            if (userScore == pointsToWin)
+            {
+                Console.SetCursorPosition(20, 1);
+                Console.WriteLine("Вы собрали все элементы");
+                Console.ReadKey();
+                isExit = true;
+            }
+        }
+
+        static void CollectPoint(ref int userXPosition, ref int userYPosition, char[,] map,ref int userScore)
         {
             if (map[userYPosition, userXPosition] == 'X')
             {
                 map[userYPosition, userXPosition] = 'O';
-
                 userScore += 1;
-
-                if (userScore == 10)
-                {
-                    Console.SetCursorPosition(20, 1);
-                    Console.WriteLine("Вы собрали все элементы");
-                    Console.ReadKey();
-                    isExit = true;
-                }
             }
         }
 
-        static void DieFromWall(ref int userXPosition, ref int userYPosition, ref char[,] map, ref bool isExit)
+        static void CheckWallCollide(ref int userXPosition, ref int userYPosition, char[,] map, ref bool isExit)
         {
             if (map[userYPosition, userXPosition] == '!')
             {
