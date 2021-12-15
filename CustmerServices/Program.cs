@@ -18,15 +18,15 @@ namespace CustmerServices
                 customers.Enqueue(random.Next(50,2000));
             }
 
-            foreach (var customer in customers)
+            while (customers.Count != 0)
             {
                 Console.WriteLine("Ваши денежки: " +userWallet);
-                userWallet += ServiceCustomer(customer);
+                userWallet += ServeCustomer(customers.Peek());
+                customers.Dequeue();
             }
-            
         }
 
-        private static int ServiceCustomer(int customer)
+        private static int ServeCustomer(int customer)
         {
             Console.WriteLine(" С покупками на сумму - "  + customer);
             Console.WriteLine("Нажмите любую кнопку чтобы обслужить");
