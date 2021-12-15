@@ -35,17 +35,17 @@ namespace DictionaryDocie
                         break;
                 }
             }
-           
         }
 
         static void AddEmployee(Dictionary<string, string> employees)
         {
             Console.Clear();
+            int indexofEmployee = employees.Count;
             Console.WriteLine("Введите ФИО работника: ");
-            string fio = Console.ReadLine();
+            string name = Console.ReadLine();
             Console.WriteLine("Введите должность: ");
             string work = Console.ReadLine();
-            employees.Add(fio, work);
+            employees.Add(indexofEmployee.ToString(), name + " - " + work);
         }
 
         static void ShowAllEmployees(Dictionary<string, string> employees)
@@ -59,7 +59,7 @@ namespace DictionaryDocie
 
             foreach (var employee in employees)
             {
-                Console.WriteLine(employee.Key +" - "+ employee.Value);
+                Console.WriteLine(employee.Key +". "+ employee.Value);
             }
         }
 
@@ -73,28 +73,19 @@ namespace DictionaryDocie
                 return;
             }
 
-            int deleteIndex;
-            int employeeIndex = 1;
+            string deleteIndex;
             foreach (var employee in employees)
             {
-                Console.WriteLine(employeeIndex+". " + employee.Key +" - "+ employee.Key);
-                employeeIndex++;
+                Console.WriteLine( employee.Key +". "+ employee.Value);
             }
             Console.WriteLine("Введите индекс на удаление:");
 
-            if (Int32.TryParse(Console.ReadLine(), out deleteIndex))
+            deleteIndex = Console.ReadLine();
+            try
             {
-                employeeIndex = 1;
-                foreach (var employee in employees)
-                {
-                    employeeIndex++;
-                    if (deleteIndex + 1 == employeeIndex)
-                    {
-                        employees.Remove(employee.Key);
-                    }
-                }
+                employees.Remove(deleteIndex);
             }
-            else
+            catch (Exception e)
             {
                 Console.WriteLine("Неверный индекс!");
             }
