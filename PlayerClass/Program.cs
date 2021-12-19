@@ -13,18 +13,18 @@ namespace PlayerClass
 
     class Player
     {
-        private string name;
-        private string speciality;
+        private string _name;
+        private string _speciality;
 
         public Player()
         {
-            name = "SetMa02";
-            speciality = "маг";
+            _name = "SetMa02";
+            _speciality = "маг";
         }
 
         public  void ShowStatus()
         {
-            Console.WriteLine(this.name + " " + this.speciality);
+            Console.WriteLine(_name + " " + _speciality);
         }
     }
 }
