@@ -52,6 +52,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DictionaryDocie", "Dictiona
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerClass", "PlayerClass\PlayerClass.csproj", "{FA99D89F-8FD4-43CF-AE1C-8E8AC09C3BA5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XYPosition", "XYPosition\XYPosition.csproj", "{EA63681F-33E3-45E7-A82E-20C42D396091}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -162,5 +164,9 @@ Global
 		{FA99D89F-8FD4-43CF-AE1C-8E8AC09C3BA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA99D89F-8FD4-43CF-AE1C-8E8AC09C3BA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA99D89F-8FD4-43CF-AE1C-8E8AC09C3BA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA63681F-33E3-45E7-A82E-20C42D396091}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA63681F-33E3-45E7-A82E-20C42D396091}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA63681F-33E3-45E7-A82E-20C42D396091}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA63681F-33E3-45E7-A82E-20C42D396091}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
