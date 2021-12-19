@@ -64,6 +64,9 @@ namespace DictionaryDocie
 
         private static void DeleteEmployee(List<string> employees)
         {   
+            string deleteIndexInput;
+            int deleteIndex;
+            
             Console.Clear();
 
             if (employees.Count == 0)
@@ -72,24 +75,21 @@ namespace DictionaryDocie
                 return;
             }
 
-            string deleteIndex;
             for (int i = 0; i < employees.Count; i++)
             {
                 Console.WriteLine(i +". "+ employees[i]);
             }
             Console.WriteLine("Введите индекс на удаление:");
 
-            deleteIndex = Console.ReadLine();
-            try
+            deleteIndexInput = Console.ReadLine();
+            if (Int32.TryParse(deleteIndexInput,out deleteIndex))
             {
-                employees.RemoveAt(Int32.Parse(deleteIndex));
+                employees.RemoveAt(deleteIndex);
             }
-            catch (Exception e)
+            else
             {
-                Console.WriteLine("Неверный индекс!");
+                Console.WriteLine("Неверный ввод!");
             }
         }
-
-     
     }
 }
