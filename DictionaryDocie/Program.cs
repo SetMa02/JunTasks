@@ -7,7 +7,7 @@ namespace DictionaryDocie
     {
         static void Main(string[] args)
         {
-            Dictionary<int, string> employees = new Dictionary<int, string>();
+            List<string> employees = new List<string>();
             bool isExit = false;
             while (isExit == false)
             {
@@ -37,18 +37,17 @@ namespace DictionaryDocie
             }
         }
 
-        static void AddEmployee(Dictionary<int, string> employees)
+        static void AddEmployee(List<string> employees)
         {
             Console.Clear();
-            int indexofEmployee = GetLastIndex(employees) + 1;
             Console.WriteLine("Введите ФИО работника: ");
             string name = Console.ReadLine();
             Console.WriteLine("Введите должность: ");
             string work = Console.ReadLine();
-            employees.Add(indexofEmployee, name + " - " + work);
+            employees.Add( name + " - " + work);
         }
 
-        static void ShowAllEmployees(Dictionary<int, string> employees)
+        static void ShowAllEmployees(List<string> employees)
         {
             Console.Clear();
             if (employees.Count == 0)
@@ -57,13 +56,13 @@ namespace DictionaryDocie
                 return;
             }
 
-            foreach (var employee in employees)
+            for (int i = 0; i < employees.Count; i++)
             {
-                Console.WriteLine(employee.Key +". "+ employee.Value);
+                Console.WriteLine(i +". "+ employees[i]);
             }
         }
 
-        private static void DeleteEmployee(Dictionary<int, string> employees)
+        private static void DeleteEmployee(List<string> employees)
         {   
             Console.Clear();
 
@@ -74,16 +73,16 @@ namespace DictionaryDocie
             }
 
             string deleteIndex;
-            foreach (var employee in employees)
+            for (int i = 0; i < employees.Count; i++)
             {
-                Console.WriteLine( employee.Key +". "+ employee.Value);
+                Console.WriteLine(i +". "+ employees[i]);
             }
             Console.WriteLine("Введите индекс на удаление:");
 
             deleteIndex = Console.ReadLine();
             try
             {
-                employees.Remove(Int32.Parse(deleteIndex));
+                employees.RemoveAt(Int32.Parse(deleteIndex));
             }
             catch (Exception e)
             {
@@ -91,15 +90,6 @@ namespace DictionaryDocie
             }
         }
 
-        static int GetLastIndex(Dictionary<int, string> employees)
-        {
-            int lastIndex = 0;
-            foreach (var employee in employees)
-            {
-                lastIndex = employee.Key;
-            }
-
-            return lastIndex;
-        }
+     
     }
 }

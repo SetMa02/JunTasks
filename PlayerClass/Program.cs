@@ -8,24 +8,18 @@ namespace PlayerClass
         {
             Player player = new Player();
             
-            Player.ShowStatus(player);
         }
     }
 
     class Player
     {
-        private string name;
-        private string playerClass;
+        public string name;
+        public string speciality;
 
         public Player()
         {
             name = "SetMa02";
-            playerClass = "маг";
-        }
-
-        public static void ShowStatus(Player player)
-        {
-            Console.WriteLine(player.name + " " + player.playerClass);
+            speciality = "маг";
         }
     }
 }
