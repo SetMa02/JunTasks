@@ -7,7 +7,7 @@ namespace DictionaryDocie
     {
         static void Main(string[] args)
         {
-            Dictionary<string, string> employees = new Dictionary<string, string>();
+            Dictionary<int, string> employees = new Dictionary<int, string>();
             bool isExit = false;
             while (isExit == false)
             {
@@ -37,18 +37,18 @@ namespace DictionaryDocie
             }
         }
 
-        static void AddEmployee(Dictionary<string, string> employees)
+        static void AddEmployee(Dictionary<int, string> employees)
         {
             Console.Clear();
-            int indexofEmployee = employees.Count;
+            int indexofEmployee = GetLastIndex(employees) + 1;
             Console.WriteLine("Введите ФИО работника: ");
             string name = Console.ReadLine();
             Console.WriteLine("Введите должность: ");
             string work = Console.ReadLine();
-            employees.Add(indexofEmployee.ToString(), name + " - " + work);
+            employees.Add(indexofEmployee, name + " - " + work);
         }
 
-        static void ShowAllEmployees(Dictionary<string, string> employees)
+        static void ShowAllEmployees(Dictionary<int, string> employees)
         {
             Console.Clear();
             if (employees.Count == 0)
@@ -63,7 +63,7 @@ namespace DictionaryDocie
             }
         }
 
-        private static void DeleteEmployee(Dictionary<string, string> employees)
+        private static void DeleteEmployee(Dictionary<int, string> employees)
         {   
             Console.Clear();
 
@@ -83,12 +83,23 @@ namespace DictionaryDocie
             deleteIndex = Console.ReadLine();
             try
             {
-                employees.Remove(deleteIndex);
+                employees.Remove(Int32.Parse(deleteIndex));
             }
             catch (Exception e)
             {
                 Console.WriteLine("Неверный индекс!");
             }
+        }
+
+        static int GetLastIndex(Dictionary<int, string> employees)
+        {
+            int lastIndex = 0;
+            foreach (var employee in employees)
+            {
+                lastIndex = employee.Key;
+            }
+
+            return lastIndex;
         }
     }
 }
