@@ -7,19 +7,24 @@ namespace PlayerClass
         static void Main(string[] args)
         {
             Player player = new Player();
-            
+            player.ShowStatus();
         }
     }
 
     class Player
     {
-        public string name;
-        public string speciality;
+        private string name;
+        private string speciality;
 
         public Player()
         {
             name = "SetMa02";
             speciality = "маг";
+        }
+
+        public  void ShowStatus()
+        {
+            Console.WriteLine(this.name + " " + this.speciality);
         }
     }
 }
