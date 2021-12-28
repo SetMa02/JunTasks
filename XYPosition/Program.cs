@@ -7,7 +7,7 @@ namespace XYPosition
         static void Main(string[] args)
         {
             Player player = new Player();
-            Draw draw = new Draw();
+            Map draw = new Map();
             
             draw.DrawPlayerInMap(player);
         }
@@ -15,50 +15,59 @@ namespace XYPosition
 
     class Player
     {
-        public int xPosition;
-        public int yPosition;
+        private int _xPositionPosition;
+
+        public int XPositionPosition => _xPositionPosition;
+        
+        private int _yPositionPosition;
+        public int YPositionPosition => _yPositionPosition;
 
         public Player()
         {
-            xPosition = 1;
-            yPosition = 2;
+           _xPositionPosition = 1;
+            _yPositionPosition = 2;
         }
         
-        public Player(int x, int y)
+        public Player(int xPosition, int yPosition)
         {
-            xPosition = x;
-            yPosition = y;
+            _xPositionPosition = xPosition;
+            _yPositionPosition = yPosition;
         }
     }
 
-    class Draw
+    class Map
     {
-        private char[,] map =
+        private int _mapXLength;
+        private int _mapYLength;
+        
+        public Map()
         {
-            {'.','.','.','.','.','.','.','.'},
-            {'.','.','.','.','.','.','.','.'},
-            {'.','.','.','.','.','.','.','.'},
-            {'.','.','.','.','.','.','.','.'},
-            {'.','.','.','.','.','.','.','.'},
-            {'.','.','.','.','.','.','.','.'},
-            {'.','.','.','.','.','.','.','.'},
-            {'.','.','.','.','.','.','.','.'},
-            {'.','.','.','.','.','.','.','.'},
-            {'.','.','.','.','.','.','.','.'}
-        };
-
+            _mapXLength = 10;
+            _mapYLength = 10;
+        }
+        
+        public Map(int xLenghts,int yLenghts)
+        {
+            _mapXLength = xLenghts;
+            _mapYLength = yLenghts;
+        }
         public void DrawPlayerInMap(Player player)
         {
-            for (int i = 0; i < map.GetLength(0); i++)
+            for (int i = 1; i <= _mapXLength ; i++)
             {
-                for (int j = 0; j < map.GetLength(1); j++)
+                for (int j = 1; j <= _mapYLength; j++)
                 {
-                    Console.Write(map[i, j]);
+                    if (i == player.XPositionPosition && j == player.YPositionPosition) 
+                    {
+                        Console.Write("#");
+                    }
+                    else
+                    {
+                        Console.Write(".");
+                    }
                 }
                 Console.WriteLine();
             }
-            Console.SetCursorPosition(player.xPosition -1, player.yPosition -1);
-            Console.Write("#");
         }
     }
 }
