@@ -6,53 +6,56 @@ namespace XYPosition
     {
         static void Main(string[] args)
         {
-            int _mapXLength;
-            int _mapYLength;
+            int mapXLength;
+            int mapYLength;
 
-            _mapXLength = 10;
-            _mapYLength = 10;
+            mapXLength = 10;
+            mapYLength = 10;
 
             Player player = new Player();
             PlayerRender render = new PlayerRender();
 
-            for (int i = 1; i < _mapXLength; i++)
+            
+            for (int i = 1; i < mapXLength; i++)
             {
-                for (int j = 1; j < _mapYLength; j++)
+                for (int j = 1; j < mapYLength; j++)
                 {
                     Console.Write(".");
                 }
                 Console.WriteLine();
             }
-            render.SetThePlayer(player);
+            render.ShowPlayer(player);
         }
     }
 
     class Player
     {
-        private int _xPlayerPosition;
-        private int _yPlayerPosition;
-        public int XPlayerPosition => _xPlayerPosition;
-        public int YPlayerPosition => _yPlayerPosition;
+        private int _xPosition;
+        private int _yPosition;
+        public int XPosition => _xPosition;
+        public int YPosition => _yPosition;
 
         public Player()
         {
-           _xPlayerPosition = 2;
-            _yPlayerPosition = 4;
+           _xPosition = 2;
+            _yPosition = 4;
         }
         
-        public Player(int xPlayerPosition, int yPlayerPosition)
+        public Player(int xPosition, int yPosition)
         {
-            _xPlayerPosition = xPlayerPosition;
-            _yPlayerPosition = yPlayerPosition;
+            _xPosition = xPosition;
+            _yPosition = yPosition;
         }
     }
 
     class PlayerRender
     {
-        public void SetThePlayer(Player player)
+        public void ShowPlayer(Player player)
         {
-            Console.SetCursorPosition(player.XPlayerPosition, player.YPlayerPosition);
+            Console.SetCursorPosition(player.XPosition, player.YPosition);
             Console.Write("#");
+            Console.SetCursorPosition(0, 0);
+            
         }
     }
 }
