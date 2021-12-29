@@ -6,68 +6,53 @@ namespace XYPosition
     {
         static void Main(string[] args)
         {
+            int _mapXLength;
+            int _mapYLength;
+
+            _mapXLength = 10;
+            _mapYLength = 10;
+
             Player player = new Player();
-            Map draw = new Map();
-            
-            draw.DrawPlayerInMap(player);
+            PlayerRender render = new PlayerRender();
+
+            for (int i = 1; i < _mapXLength; i++)
+            {
+                for (int j = 1; j < _mapYLength; j++)
+                {
+                    Console.Write(".");
+                }
+                Console.WriteLine();
+            }
+            render.SetThePlayer(player);
         }
     }
 
     class Player
     {
-        private int _xPositionPosition;
-
-        public int XPositionPosition => _xPositionPosition;
-        
-        private int _yPositionPosition;
-        public int YPositionPosition => _yPositionPosition;
+        private int _xPlayerPosition;
+        private int _yPlayerPosition;
+        public int XPlayerPosition => _xPlayerPosition;
+        public int YPlayerPosition => _yPlayerPosition;
 
         public Player()
         {
-           _xPositionPosition = 1;
-            _yPositionPosition = 2;
+           _xPlayerPosition = 2;
+            _yPlayerPosition = 4;
         }
         
-        public Player(int xPosition, int yPosition)
+        public Player(int xPlayerPosition, int yPlayerPosition)
         {
-            _xPositionPosition = xPosition;
-            _yPositionPosition = yPosition;
+            _xPlayerPosition = xPlayerPosition;
+            _yPlayerPosition = yPlayerPosition;
         }
     }
 
-    class Map
+    class PlayerRender
     {
-        private int _mapXLength;
-        private int _mapYLength;
-        
-        public Map()
+        public void SetThePlayer(Player player)
         {
-            _mapXLength = 10;
-            _mapYLength = 10;
-        }
-        
-        public Map(int xLenghts,int yLenghts)
-        {
-            _mapXLength = xLenghts;
-            _mapYLength = yLenghts;
-        }
-        public void DrawPlayerInMap(Player player)
-        {
-            for (int i = 1; i <= _mapXLength ; i++)
-            {
-                for (int j = 1; j <= _mapYLength; j++)
-                {
-                    if (i == player.XPositionPosition && j == player.YPositionPosition) 
-                    {
-                        Console.Write("#");
-                    }
-                    else
-                    {
-                        Console.Write(".");
-                    }
-                }
-                Console.WriteLine();
-            }
+            Console.SetCursorPosition(player.XPlayerPosition, player.YPlayerPosition);
+            Console.Write("#");
         }
     }
 }
