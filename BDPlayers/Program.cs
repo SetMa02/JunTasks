@@ -49,28 +49,12 @@ namespace BDPlayers
                         break;
                     case "4":
                         int banIndex;
-
-                        foreach (var databasePlayer in database.Players)
-                        {
-                            if (databasePlayer.IsBanned == false)
-                            {
-                                Console.WriteLine(databasePlayer.Id + ". " + databasePlayer.NickName);
-                            }
-                        }
-
+                        database.ShowBanStatuses(false);
                         banIndex = Convert.ToInt32(Console.ReadLine());
                         database.BanPlayer(banIndex);
                         break;
                     case "5":
                         int unBanIndex;
-                        foreach (var databasePlayer in database.Players)
-                        {
-                            if (databasePlayer.IsBanned == true)
-                            {
-                                Console.WriteLine(databasePlayer.Id + ". " + databasePlayer.NickName);
-                            }
-                        }
-
                         unBanIndex = Convert.ToInt32(Console.ReadLine());
                         database.UnBanPlayer(unBanIndex);
                         break;
@@ -95,8 +79,7 @@ namespace BDPlayers
         public int Id { get; set; }
         public string NickName => _nickName;
         public int PlayerLevel => _playerLevel;
-
-        public bool IsBanned { get; set; }
+        public bool IsBanned => _isBanned;
 
         public Player(int id, string nickName, int playerLevel)
         {
@@ -105,13 +88,21 @@ namespace BDPlayers
             _playerLevel = playerLevel;
             _isBanned = false;
         }
+
+        public void Ban()
+        {
+            _isBanned = true;
+        }
+
+        public void UnBan()
+        {
+            _isBanned = false;
+        }
     }
 
     class Database
     {
         private List<Player> _players;
-
-        public List<Player> Players => _players;
 
         public void RewritePlayers()
         {
@@ -135,12 +126,12 @@ namespace BDPlayers
 
         public void BanPlayer(int id)
         {
-            _players[id].IsBanned = true;
+            _players[id].Ban();
         }
 
         public void UnBanPlayer(int id)
         {
-            _players[id].IsBanned = false;
+            _players[id].UnBan();
         }
 
         public void DeletePlayers(int id)
@@ -154,6 +145,17 @@ namespace BDPlayers
             foreach (var player in _players)
             {
                 Console.WriteLine(player.Id + ". " + player.NickName + " " + player.IsBanned);
+            }
+        }
+
+        public void ShowBanStatuses(bool status)
+        {
+            foreach (var databasePlayer in _players)
+            {
+                if (databasePlayer.IsBanned == status)
+                {
+                    Console.WriteLine(databasePlayer.Id + ". " + databasePlayer.NickName);
+                }
             }
         }
     }
