@@ -23,40 +23,19 @@ namespace BDPlayers
                 switch (Console.ReadLine())
                 {
                     case "1":
-
-                        string nickName;
-                        int level;
-
-                        Console.WriteLine("Введите имя игрока:");
-                        nickName = Console.ReadLine();
-                        Console.WriteLine("Введите уровень игрока:");
-                        level = Convert.ToInt32(Console.ReadLine());
-
-                        Player player = new Player(0, nickName, level);
-                        database.AddPlayer(player);
-                        database.RewritePlayers();
-
+                        AddPlayer();
                         break;
                     case "2":
-                        database.ShowPlayer();
+                        database.ShowPlayers();
                         break;
                     case "3":
-                        int deleteIndex;
-                        database.ShowPlayer();
-                        Console.WriteLine("Введите индекс на удаление:");
-                        deleteIndex = Convert.ToInt32(Console.ReadLine());
-                        database.DeletePlayers(deleteIndex);
+                        DeletePlayer();
                         break;
                     case "4":
-                        int banIndex;
-                        database.ShowBanStatuses(false);
-                        banIndex = Convert.ToInt32(Console.ReadLine());
-                        database.BanPlayer(banIndex);
+                       BanPlayer();
                         break;
                     case "5":
-                        int unBanIndex;
-                        unBanIndex = Convert.ToInt32(Console.ReadLine());
-                        database.UnBanPlayer(unBanIndex);
+                        UnBanPlayer();
                         break;
                     case "6":
                         isExit = true;
@@ -65,25 +44,90 @@ namespace BDPlayers
                         Console.WriteLine("Невверный ввод!");
                         break;
                 }
+                
+            }
+
+            void AddPlayer()
+            {
+                string nickName;
+                int level;
+
+                Console.WriteLine("Введите имя игрока:");
+                nickName = Console.ReadLine();
+                Console.WriteLine("Введите уровень игрока:");
+                if (!Int32.TryParse(Console.ReadLine(), out level))
+                {
+                    Console.Clear();
+                    Console.WriteLine("Неправильный ввод!");
+                    AddPlayer();
+                }
+                else
+                {
+                    Player player = new Player(0, nickName, level);
+                    database.AddPlayer(player);
+                    database.RewritePlayers();
+                }
+            }
+
+            void DeletePlayer()
+            {
+                int deleteIndex;
+                database.ShowPlayers();
+                Console.WriteLine("Введите индекс на удаление:");
+                deleteIndex = Convert.ToInt32(Console.ReadLine());
+                database.DeletePlayer(deleteIndex);
+            }
+
+            void BanPlayer()
+            {
+                int banIndex;
+                database.ShowBanStatuses(false);
+                if (!Int32.TryParse(Console.ReadLine(), out banIndex))
+                {
+                    Console.Clear();
+                    Console.WriteLine("Неверный ввод!");
+                    BanPlayer();
+                }
+                else
+                {
+                    database.BanPlayer(banIndex);
+                }
+               
+            }
+
+            void UnBanPlayer()
+            {
+                int unBanIndex;
+                if (!Int32.TryParse(Console.ReadLine(), out unBanIndex))
+                {
+                    Console.Clear();
+                    Console.WriteLine("Неверный ввод!");
+                    UnBanPlayer();
+                }
+                else
+                {
+                    database.UnBanPlayer(unBanIndex);
+                }
+                
             }
         }
     }
 
     class Player
     {
-        private int _id;
+        private int _index;
         private string _nickName;
         private int _playerLevel;
         private bool _isBanned;
 
-        public int Id { get; set; }
+        public int Index => _index;
         public string NickName => _nickName;
         public int PlayerLevel => _playerLevel;
         public bool IsBanned => _isBanned;
 
-        public Player(int id, string nickName, int playerLevel)
+        public Player(int index, string nickName, int playerLevel)
         {
-            _id = id;
+            _index = index;
             _nickName = nickName;
             _playerLevel = playerLevel;
             _isBanned = false;
@@ -98,6 +142,11 @@ namespace BDPlayers
         {
             _isBanned = false;
         }
+
+        public void SetIndex(int newIndex)
+        {
+            _index = newIndex;
+        }
     }
 
     class Database
@@ -109,7 +158,7 @@ namespace BDPlayers
             int newIndex = 0;
             foreach (var player in _players)
             {
-                player.Id = newIndex;
+                player.SetIndex(newIndex);
                 newIndex++;
             }
         }
@@ -134,17 +183,17 @@ namespace BDPlayers
             _players[id].UnBan();
         }
 
-        public void DeletePlayers(int id)
+        public void DeletePlayer(int id)
         {
             _players.RemoveAt(id);
             RewritePlayers();
         }
 
-        public void ShowPlayer()
+        public void ShowPlayers()
         {
             foreach (var player in _players)
             {
-                Console.WriteLine(player.Id + ". " + player.NickName + " " + player.IsBanned);
+                Console.WriteLine(player.Index + ". " + player.NickName + " " + player.IsBanned);
             }
         }
 
@@ -154,7 +203,7 @@ namespace BDPlayers
             {
                 if (databasePlayer.IsBanned == status)
                 {
-                    Console.WriteLine(databasePlayer.Id + ". " + databasePlayer.NickName);
+                    Console.WriteLine(databasePlayer.Index + ". " + databasePlayer.NickName);
                 }
             }
         }
