@@ -32,7 +32,7 @@ namespace BDPlayers
                         DeletePlayer();
                         break;
                     case "4":
-                       BanPlayer();
+                        BanPlayer();
                         break;
                     case "5":
                         UnBanPlayer();
@@ -44,7 +44,6 @@ namespace BDPlayers
                         Console.WriteLine("Невверный ввод!");
                         break;
                 }
-                
             }
 
             void AddPlayer()
@@ -63,9 +62,8 @@ namespace BDPlayers
                 }
                 else
                 {
-                    Player player = new Player(0, nickName, level);
+                    Player player = new Player( nickName, level);
                     database.AddPlayer(player);
-                    database.RewritePlayers();
                 }
             }
 
@@ -92,7 +90,6 @@ namespace BDPlayers
                 {
                     database.BanPlayer(banIndex);
                 }
-               
             }
 
             void UnBanPlayer()
@@ -108,26 +105,21 @@ namespace BDPlayers
                 {
                     database.UnBanPlayer(unBanIndex);
                 }
-                
             }
         }
     }
 
     class Player
     {
-        private int _index;
         private string _nickName;
         private int _playerLevel;
         private bool _isBanned;
 
-        public int Index => _index;
         public string NickName => _nickName;
-        public int PlayerLevel => _playerLevel;
         public bool IsBanned => _isBanned;
 
-        public Player(int index, string nickName, int playerLevel)
+        public Player(string nickName, int playerLevel)
         {
-            _index = index;
             _nickName = nickName;
             _playerLevel = playerLevel;
             _isBanned = false;
@@ -142,26 +134,11 @@ namespace BDPlayers
         {
             _isBanned = false;
         }
-
-        public void SetIndex(int newIndex)
-        {
-            _index = newIndex;
-        }
     }
 
     class Database
     {
         private List<Player> _players;
-
-        public void RewritePlayers()
-        {
-            int newIndex = 0;
-            foreach (var player in _players)
-            {
-                player.SetIndex(newIndex);
-                newIndex++;
-            }
-        }
 
         public Database()
         {
@@ -186,24 +163,23 @@ namespace BDPlayers
         public void DeletePlayer(int id)
         {
             _players.RemoveAt(id);
-            RewritePlayers();
         }
 
         public void ShowPlayers()
         {
-            foreach (var player in _players)
+            for (int i = 0; i < _players.Count; i++)
             {
-                Console.WriteLine(player.Index + ". " + player.NickName + " " + player.IsBanned);
+                Console.WriteLine(i + ". " + _players[i].NickName + " " + _players[i].IsBanned);
             }
         }
 
         public void ShowBanStatuses(bool status)
         {
-            foreach (var databasePlayer in _players)
+            for (int i = 0; i < _players.Count; i++)
             {
-                if (databasePlayer.IsBanned == status)
+                if (_players[i].IsBanned == status)
                 {
-                    Console.WriteLine(databasePlayer.Index + ". " + databasePlayer.NickName);
+                    Console.WriteLine(i + ". " + _players[i].NickName);
                 }
             }
         }
