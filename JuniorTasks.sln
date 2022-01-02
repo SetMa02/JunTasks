@@ -58,6 +58,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDPlayers", "BDPlayers\BDPl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop", "Shop\Shop.csproj", "{06F42E58-88C8-4839-8CB8-4C12621D753B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainsTripPlanner", "TrainsTripPlanner\TrainsTripPlanner.csproj", "{E0AD0616-9C00-4E93-B1A5-51DF1A1BCDE5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -180,5 +182,9 @@ Global
 		{06F42E58-88C8-4839-8CB8-4C12621D753B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06F42E58-88C8-4839-8CB8-4C12621D753B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06F42E58-88C8-4839-8CB8-4C12621D753B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0AD0616-9C00-4E93-B1A5-51DF1A1BCDE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0AD0616-9C00-4E93-B1A5-51DF1A1BCDE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0AD0616-9C00-4E93-B1A5-51DF1A1BCDE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0AD0616-9C00-4E93-B1A5-51DF1A1BCDE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
