@@ -8,10 +8,12 @@ namespace TrainsTripPlanner
         static void Main(string[] args)
         {
             bool isExit = false;
-            
+            int minPassangers = 10;
+            int maxPassangers = 500;
+
             while (isExit == false)
             {
-                LogistickPreparation logistick = new LogistickPreparation();
+                LogistickPreparation logistick = new LogistickPreparation(minPassangers, maxPassangers);
                 logistick.CreateTrip();
                 Console.WriteLine("На поездку зарегестрировались " + logistick.Passangers + " пассажиров +\n" +
                                   "Нажмите любую кнопку чтобы сформировать поезд");
@@ -30,7 +32,6 @@ namespace TrainsTripPlanner
             }
         }
     }
-
     class LogistickPreparation
     {
         private Random _random = new Random();
@@ -40,11 +41,10 @@ namespace TrainsTripPlanner
         public int Passangers => _passangers;
         public string Trip => _trip;
 
-        public LogistickPreparation()
+        public LogistickPreparation(int minPassangers, int maxPassangers)
         {
-            _passangers = _random.Next(10, 500);
+            _passangers = _random.Next(minPassangers, maxPassangers);
         }
-
         public void CreateTrip()
         {
             Console.WriteLine("Точка отправления: ");
@@ -53,14 +53,43 @@ namespace TrainsTripPlanner
             _trip += "-" + Console.ReadLine();
         }
     }
-
     class TrainConstruction
     {
         private List<Carriage> _carriages;
         private int _lowCarriageCapacity;
-        private int _MediumCarriageCapacity;
-        private int _HightCarriageCapacity;
-        
+        private int _mediumCarriageCapacity;
+        private int _hightCarriageCapacity;
+        private int _maxPassangersCountForSmallCarriages;
+        private int _maxPassangersCountForMediumCarriages;
+        public TrainConstruction()
+        {
+            _carriages = new List<Carriage>() { };
+            _lowCarriageCapacity = 15;
+            _mediumCarriageCapacity = 30;
+            _hightCarriageCapacity = 60;
+            _maxPassangersCountForMediumCarriages = 250;
+            _maxPassangersCountForSmallCarriages = 100;
+        }
+        public void Form(int passangers)
+        {
+            if (passangers <= _maxPassangersCountForSmallCarriages)
+            {
+                CarrageCreation(_lowCarriageCapacity, CalculationCarrageCapacity(passangers, _lowCarriageCapacity));
+            }
+            else if (passangers <= 250 && passangers > _maxPassangersCountForMediumCarriages)
+            {
+                CarrageCreation(_mediumCarriageCapacity,
+                    CalculationCarrageCapacity(passangers, _mediumCarriageCapacity));
+            }
+            else
+            {
+                CarrageCreation(_hightCarriageCapacity, CalculationCarrageCapacity(passangers, _hightCarriageCapacity));
+            }
+        }
+        public void ShowCarriagesData()
+        {
+            Console.WriteLine("Всего вагонов - " + _carriages.Count + ". Каждый вмещает - " + _carriages[0].Capacity);
+        }
         private int CalculationCarrageCapacity(int passangers, int capacity)
         {
             int carrages = passangers / capacity;
@@ -68,10 +97,8 @@ namespace TrainsTripPlanner
             {
                 carrages++;
             }
-            
             return carrages;
         }
-
         private void CarrageCreation(int capacity, int count)
         {
             for (int i = 0; i < count; i++)
@@ -80,42 +107,11 @@ namespace TrainsTripPlanner
                 _carriages.Add(carriage);
             }
         }
-        
-        public TrainConstruction()
-        {
-            _carriages = new List<Carriage>() { };
-            _lowCarriageCapacity = 15;
-            _MediumCarriageCapacity = 30;
-            _HightCarriageCapacity = 60;
-        }
-
-        public void Form(int passangers)
-        {
-            if (passangers <= 100)
-            {
-                CarrageCreation(_lowCarriageCapacity, CalculationCarrageCapacity(passangers,_lowCarriageCapacity));
-            }
-            else if(passangers <= 250 && passangers > 100)
-            {
-                CarrageCreation(_MediumCarriageCapacity, CalculationCarrageCapacity(passangers,_MediumCarriageCapacity));
-            }
-            else
-            {
-                CarrageCreation(_HightCarriageCapacity, CalculationCarrageCapacity(passangers,_HightCarriageCapacity));
-            }
-        }
-
-        public void ShowCarriagesData()
-        {
-            Console.WriteLine("Всего вагонов - " + _carriages.Count+ ". Каждый вмещает - " + _carriages[0].Capacity);
-        }
     }
-    
     class Carriage
     {
         private int _capacity;
-        public int Capacity=> _capacity;
-
+        public int Capacity => _capacity;
         public Carriage(int capacity)
         {
             _capacity = capacity;
