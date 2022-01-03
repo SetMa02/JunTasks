@@ -40,14 +40,13 @@ namespace Shop
                         break;
                 }
             }
-
             void BuyItem()
             {
                 int buyIndex;
                 Console.Clear();
                 Console.WriteLine("Какой товар хотите купить?");
                 seller.ShowItems();
-                if (!Int32.TryParse(Console.ReadLine(), out buyIndex))
+                if (Int32.TryParse(Console.ReadLine(), out buyIndex) == false)
                 {
                     Console.WriteLine("Неверный индекс!");
                     BuyItem();
@@ -59,7 +58,6 @@ namespace Shop
             }
         }
     }
-
     class Profile
     {
         protected List<Item> Items;
@@ -68,7 +66,6 @@ namespace Shop
         {
             Items = items;
         }
-
         public void ShowItems()
         {
             Console.WriteLine();
@@ -78,7 +75,6 @@ namespace Shop
             }
         }
     }
-
     class Player : Profile
     {
         private int _money;
@@ -102,7 +98,6 @@ namespace Shop
             }
         }
     }
-
     class Seller : Profile
     {
         public Seller() : base(new List<Item>()
@@ -112,9 +107,7 @@ namespace Shop
             new Item("Лук", 75),
             new Item("Щит", 125),
             new Item("Кинжал", 50)
-        })
-        {
-        }
+        }){ }
 
         public Item SellItem(int id)
         {
@@ -123,15 +116,12 @@ namespace Shop
             return sellItem;
         }
     }
-
     class Item
     {
         private string _name;
         private int _cost;
-
         public string Name => _name;
         public int Cost => _cost;
-
         public Item(string name, int cost)
         {
             _name = name;
