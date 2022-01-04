@@ -34,17 +34,21 @@ namespace Fight
     class Boxer : Fighter
     {
         private Random _random;
-        private bool _isDoubleAttack;
+        private int _chanceForDoubleAttack;
 
         public Boxer(double health, double damage, int armor) : base(health, damage, armor)
         {
             _random = new Random();
-            _isDoubleAttack = false;
+            _chanceForDoubleAttack = 3;
         }
 
         public override void Attack(Fighter fighter1, Fighter fighter2)
         {
             base.Attack(fighter1, fighter2);
+            if (_random.Next(1,10) <= _chanceForDoubleAttack)
+            {
+                base.Attack(fighter1, fighter2);
+            }
         }
     }
 
@@ -56,7 +60,59 @@ namespace Fight
         {
             _lifeRestore = lifeRestore;
         }
-        
-        
+
+        public override void Attack(Fighter fighter1, Fighter fighter2)
+        {
+            base.Attack(fighter1, fighter2);
+            Health += _lifeRestore;
+        }
+    }
+
+    class LivingTree : Fighter
+    {
+        private int _armorGrow;
+
+        public LivingTree(double health, double damage, int armor, int armorGrow) : base(health, damage, armor)
+        {
+            _armorGrow = armorGrow;
+        }
+
+        public override void Attack(Fighter fighter1, Fighter fighter2)
+        {
+            base.Attack(fighter1, fighter2);
+            Armor += _armorGrow;
+        }
+    }
+
+    class Berserk : Fighter
+    {
+        private int _damageIncreease;
+
+        public Berserk(double health, double damage, int armor, int damageIncreease) : base(health, damage, armor)
+        {
+            _damageIncreease = damageIncreease;
+        }
+
+        public override void Attack(Fighter fighter1, Fighter fighter2)
+        {
+            base.Attack(fighter1, fighter2);
+            Damage += _damageIncreease;
+        }
+    }
+
+    class ToxicMess : Fighter
+    {
+        private int _armorDecreease;
+
+        public ToxicMess(double health, double damage, int armor, int armorDecreease) : base(health, damage, armor)
+        {
+            _armorDecreease = armorDecreease;
+        }
+
+        public override void Attack(Fighter fighter1, Fighter fighter2)
+        {
+            base.Attack(fighter1, fighter2);
+            
+        }
     }
 }

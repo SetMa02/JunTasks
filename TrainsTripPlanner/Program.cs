@@ -76,7 +76,7 @@ namespace TrainsTripPlanner
             {
                 CarrageCreation(_lowCarriageCapacity, CalculationCarrageCapacity(passangers, _lowCarriageCapacity));
             }
-            else if (passangers <= 250 && passangers > _maxPassangersCountForMediumCarriages)
+            else if (passangers <= _maxPassangersCountForMediumCarriages && passangers > _maxPassangersCountForSmallCarriages)
             {
                 CarrageCreation(_mediumCarriageCapacity,
                     CalculationCarrageCapacity(passangers, _mediumCarriageCapacity));
