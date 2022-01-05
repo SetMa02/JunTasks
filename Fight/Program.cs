@@ -5,25 +5,22 @@ namespace Fight
 {
     class Program
     {
+        static int firstFighterId = 5;
+        static int secondFighterId = 5;
+        static List<Fighter> fighters = new List<Fighter>()
+        {
+            new Berserk(100.0, 5.0, 5, 2),
+            new Boxer(100.0, 5.0, 5),
+            new Vampire(100.0, 5.0, 5, 2),
+            new LivingTree(100.0, 5.0, 5, 2),
+            new ToxicGoo(100.0, 5.0, 5, 2)
+        };
         static void Main(string[] args)
         {
-
-            int firstFighterId = 5;
-            int secondFighterId = 5;
-
-            List<Fighter> fighters = new List<Fighter>()
-            {
-                new Berserk(100.0, 5.0, 5, 2),
-                new Boxer(100.0, 5.0, 5),
-                new Vampire(100.0, 5.0, 5, 2),
-                new LivingTree(100.0, 5.0, 5, 2),
-                new ToxicGoo(100.0, 5.0, 5, 2)
-            };
-
             ChooseFighter(ref firstFighterId);
             ChooseFighter(ref secondFighterId);
 
-            while (fighters[firstFighterId].IsAlive == true || fighters[secondFighterId].IsAlive == true)
+            while (fighters[firstFighterId].IsAlive == true && fighters[secondFighterId].IsAlive == true)
             {
                 Console.Clear();
                 fighters[firstFighterId].ShowStat();
@@ -33,36 +30,38 @@ namespace Fight
                 fighters[secondFighterId].Attack(fighters[firstFighterId]);
                 Console.ReadKey();
             }
-
-            void ChooseFighter(ref int fighterId)
+        }
+        static void ChooseFighter(ref int fighterId)
+        {
+            Console.WriteLine("Выберете бойца");
+            for (int i = 0; i < fighters.Count; i++)
             {
-                Console.WriteLine("Выберете бойца");
-                for (int i = 0; i < fighters.Count; i++)
+                if (i != firstFighterId)
                 {
-                    Console.WriteLine(i + 1 + ". " + fighters[i].ShowName());
+                    Console.WriteLine(i + ". " + fighters[i].ShowName());
                 }
+            }
 
-                switch (Console.ReadLine())
-                {
-                    case "1":
-                        fighterId = 0;
-                        break;
-                    case "2":
-                        fighterId = 1;
-                        break;
-                    case "3":
-                        fighterId = 2;
-                        break;
-                    case "4":
-                        fighterId = 3;
-                        break;
-                    case "5":
-                        fighterId = 4;
-                        break;
-                    default:
-                        Console.WriteLine("Невверный ввод!");
-                        break;
-                }
+            switch (Console.ReadLine())
+            {
+                case "0":
+                    fighterId = 0;
+                    break;
+                case "1":
+                    fighterId = 1;
+                    break;
+                case "2":
+                    fighterId = 2;
+                    break;
+                case "3":
+                    fighterId = 3;
+                    break;
+                case "4":
+                    fighterId = 4;
+                    break;
+                default:
+                    Console.WriteLine("Невверный ввод!");
+                    break;
             }
         }
     }

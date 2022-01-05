@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SuperMarketAdmin
 {
@@ -10,22 +11,46 @@ namespace SuperMarketAdmin
         }
     }
 
-    class Product
+    class Customer
     {
-        private string _name;
-        private int _price;
-        public string Name => _name;
-        public int Price => _price;
+        private Random _random;
+        private int _money;
+        private int _minMoneyAmount = 100;
+        private int _maxMoneyAmount = 1500;
+        private Dictionary<string, int> _basket;
 
-        public Product(string name, int price)
+        public Customer()
         {
-            _name = name;
-            _price = price;
+            _random.Next(_minMoneyAmount, _maxMoneyAmount);
+            _basket = new Dictionary<string, int>();
         }
 
-        public void CreateProduct()
+        public void FillBasket(int countOfProducts)
         {
             
         }
+    }
+    class AllProducts
+    {
+        private Dictionary<string, int> _products = new Dictionary<string, int>();
+
+        public AllProducts()
+        {
+            _products.Add("Сыр", 250);
+            _products.Add("Молоко", 150);
+            _products.Add("Хлеб", 50);
+            _products.Add("Шоколадка", 75);
+            _products.Add("Яйца", 125);
+            _products.Add("Колбаса", 300);
+            _products.Add("Тесто", 100);
+            _products.Add("Газировка", 60);
+            _products.Add("Чипсы", 55);
+            _products.Add("Рыба", 280);
+            _products.Add("Горошек", 70);
+            _products.Add("Кукуруза", 70);
+            _products.
+        }
+        
+        
     }
 }
