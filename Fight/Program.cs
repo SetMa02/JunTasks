@@ -109,12 +109,14 @@ namespace Fight
     {
         private Random _random;
         private int _chanceForDoubleAttack;
+        private int _countExtraAtacks;
 
         public Boxer(double health, double damage, int armor) : base(health, damage, armor)
         {
             Name = "Боксер";
             _random = new Random();
             _chanceForDoubleAttack = 3;
+            _countExtraAtacks = 2;
         }
 
         public override void Attack(Fighter fighter, ref bool isExit)
@@ -123,7 +125,7 @@ namespace Fight
             if (_random.Next(1, 10) <= _chanceForDoubleAttack)
             {
                 base.Attack(fighter, ref isExit);
-                Console.WriteLine("Боксер наносит двойной удар! = " + Damage * 2 + " урона");
+                Console.WriteLine("Боксер наносит двойной удар! = " + Damage * _countExtraAtacks + " урона");
             }
             else
             {
