@@ -7,7 +7,7 @@ namespace Fight
     {
         static private int firstFighterId = 5;
         static private int secondFighterId = 5;
-        static List<Fighter> fighters = new List<Fighter>()
+        static private List<Fighter> fighters = new List<Fighter>()
         {
             new Berserk(100.0, 5.0, 5, 2),
             new Boxer(100.0, 5.0, 5),
