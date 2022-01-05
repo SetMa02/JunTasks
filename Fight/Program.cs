@@ -7,7 +7,6 @@ namespace Fight
     {
         static void Main(string[] args)
         {
-            bool isExit = false;
 
             int firstFighterId = 5;
             int secondFighterId = 5;
@@ -24,14 +23,14 @@ namespace Fight
             ChooseFighter(ref firstFighterId);
             ChooseFighter(ref secondFighterId);
 
-            while (isExit == false)
+            while (fighters[firstFighterId].IsAlive == true || fighters[secondFighterId].IsAlive == true)
             {
                 Console.Clear();
                 fighters[firstFighterId].ShowStat();
                 fighters[secondFighterId].ShowStat();
-                fighters[firstFighterId].Attack(fighters[secondFighterId], ref isExit);
+                fighters[firstFighterId].Attack(fighters[secondFighterId]);
                 Console.ReadKey();
-                fighters[secondFighterId].Attack(fighters[firstFighterId], ref isExit);
+                fighters[secondFighterId].Attack(fighters[firstFighterId]);
                 Console.ReadKey();
             }
 
@@ -70,30 +69,27 @@ namespace Fight
 
     class Fighter
     {
+        protected double OneHundredPreCent;
         protected string Name;
         protected double Health;
         protected double Damage;
         protected int Armor;
+        protected Random Random;
+        public bool IsAlive => Health > 0;
 
         public Fighter(double health, double damage, int armor)
         {
+            OneHundredPreCent = 100.0;
+            Random = new Random();
             Health = health;
             Armor = armor;
             Damage = damage;
         }
 
-        public virtual void Attack(Fighter fighter, ref bool isExit)
+        public virtual void Attack(Fighter fighter)
         {
-            double blockedDamage = fighter.Armor / 100.0;
-            blockedDamage = Damage * blockedDamage;
-            fighter.Health -= Damage - blockedDamage;
-            if (fighter.Health <= 0)
-            {
-                Console.WriteLine(fighter.Name + " Погибает");
-                isExit = true;
-            }
+            fighter.TakeDamage(Damage);
         }
-
         public void ShowStat()
         {
             Console.WriteLine("Боец " + Name + " HP = " + Health + " DMG = " + Damage + " ARM = " + Armor);
@@ -103,33 +99,41 @@ namespace Fight
         {
             return Name;
         }
+        private void TakeDamage(double damage)
+        {
+            double blockedDamage = Armor / OneHundredPreCent;
+            blockedDamage = damage * blockedDamage;
+            Health -= damage - blockedDamage;
+            if (IsAlive == false)
+            {
+                Console.WriteLine(Name + " погибает");
+            }
+        }
     }
 
     class Boxer : Fighter
     {
-        private Random _random;
         private int _chanceForDoubleAttack;
         private int _countExtraAtacks;
 
         public Boxer(double health, double damage, int armor) : base(health, damage, armor)
         {
             Name = "Боксер";
-            _random = new Random();
-            _chanceForDoubleAttack = 3;
+            _chanceForDoubleAttack = 30;
             _countExtraAtacks = 2;
         }
 
-        public override void Attack(Fighter fighter, ref bool isExit)
+        public override void Attack(Fighter fighter)
         {
-            base.Attack(fighter, ref isExit);
-            if (_random.Next(1, 10) <= _chanceForDoubleAttack)
+            base.Attack(fighter);
+            if (Random.Next(0, Convert.ToInt32(OneHundredPreCent)) <= _chanceForDoubleAttack)
             {
-                base.Attack(fighter, ref isExit);
+                base.Attack(fighter);
                 Console.WriteLine("Боксер наносит двойной удар! = " + Damage * _countExtraAtacks + " урона");
             }
             else
             {
-                Console.WriteLine("Боксер наносит двойной удар! = " + Damage + " урона");
+                Console.WriteLine("Боксер наносит удар! = " + Damage + " урона");
             }
         }
     }
@@ -144,9 +148,9 @@ namespace Fight
             Name = "Вампир";
         }
 
-        public override void Attack(Fighter fighter, ref bool isExit)
+        public override void Attack(Fighter fighter)
         {
-            base.Attack(fighter, ref isExit);
+            base.Attack(fighter);
             Health += _lifeRestore;
             Console.WriteLine("Вампир наносит удар! = " + Damage + " и восстанавливает " + _lifeRestore + " здоровья");
         }
@@ -162,9 +166,9 @@ namespace Fight
             Name = "Живое дерево";
         }
 
-        public override void Attack(Fighter fighter, ref bool isExit)
+        public override void Attack(Fighter fighter)
         {
-            base.Attack(fighter, ref isExit);
+            base.Attack(fighter);
             Armor += _armorGrow;
             Console.WriteLine(
                 "Живое дерево наносит удар! = " + Damage + " и наростает себе " + _armorGrow + " ед брони");
@@ -181,9 +185,9 @@ namespace Fight
             Name = "берсерк";
         }
 
-        public override void Attack(Fighter fighter, ref bool isExit)
+        public override void Attack(Fighter fighter)
         {
-            base.Attack(fighter, ref isExit);
+            base.Attack(fighter);
             Damage += _damageIncreease;
             Console.WriteLine("Берсерк наносит удар! = " + Damage + ", его урон увеличился на " + _damageIncreease +
                               " ед");
@@ -193,19 +197,17 @@ namespace Fight
     class ToxicGoo : Fighter
     {
         private int _increesePoint;
-        private Random _random;
 
         public ToxicGoo(double health, double damage, int armor, int increesePoint) : base(health, damage, armor)
         {
             _increesePoint = increesePoint;
-            _random = new Random();
             Name = "Сопли";
         }
 
-        public override void Attack(Fighter fighter, ref bool isExit)
+        public override void Attack(Fighter fighter)
         {
-            base.Attack(fighter, ref isExit);
-            switch (_random.Next(1, 3))
+            base.Attack(fighter);
+            switch (Random.Next(1, 3))
             {
                 case 1:
                     IncreeaseParametr(1);
@@ -224,19 +226,19 @@ namespace Fight
             if (parametr == 1)
             {
                 Damage += _increesePoint;
-                Console.WriteLine("Сопли наносит удар! = " + Damage + " урона" + "и увеличивает урон на" +
+                Console.WriteLine("Сопли наносит удар! = " + Damage + " урона" + " и увеличивает урон на" +
                                   _increesePoint);
             }
             else if (parametr == 2)
             {
                 Armor += _increesePoint;
-                Console.WriteLine("Сопли наносит удар! = " + Damage + " урона" + "и становится крепче на" +
+                Console.WriteLine("Сопли наносит удар! = " + Damage + " урона" + " и становится крепче на" +
                                   _increesePoint);
             }
             else
             {
                 Health += _increesePoint;
-                Console.WriteLine("Сопли наносит удар! = " + Damage + " урона" + "и восстанавливается на" +
+                Console.WriteLine("Сопли наносит удар! = " + Damage + " урона" + " и восстанавливается на" +
                                   _increesePoint);
             }
         }
