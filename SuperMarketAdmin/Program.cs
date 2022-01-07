@@ -1,13 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Runtime.InteropServices;
+using System.Xml;
 
 namespace SuperMarketAdmin
 {
     class Program
     {
+        private static List<Customer> _customers;
+
         static void Main(string[] args)
         {
-            
+            int customers = 10;
+            _customers = new List<Customer>() { };
+            for (int i = 0; i < customers; i++)
+            {
+                _customers.Add(new Customer());
+            }
+
+            foreach (var customer in _customers)
+            {
+                Console.WriteLine("К вам подходит покупатель");
+                customer.ShowBasket();
+                Console.WriteLine("У покупателя " + customer.Money + " денег");
+                while (CheckEnoughMoney(customer) == false)
+                {
+                    Console.WriteLine("У покупателя недостаточно средств... \n" +
+                                      "Убираем лишний товар");
+                    customer.RemoveRandomProduct();
+                }
+
+                Console.WriteLine("Денег хватает \n" +
+                                  "Следуйщий покупатель!");
+                _customers.Remove(customer);
+            }
+
+            Console.WriteLine("Посетитили кончились");
+        }
+
+        private static bool CheckEnoughMoney(Customer customer)
+        {
+            bool isEnough = false;
+            int totalProductCost = 0;
+            for (int i = 0; i < customer.ShowCount(); i++)
+            {
+                totalProductCost += customer.ShowProduct(i).Price;
+            }
+
+            Console.WriteLine("Покупок вышло на сумму = " + totalProductCost);
+            if (customer.Money >= totalProductCost)
+            {
+                isEnough = true;
+            }
+
+            return isEnough;
         }
     }
 
@@ -15,19 +62,57 @@ namespace SuperMarketAdmin
     {
         private Random _random;
         private int _money;
-        private int _minMoneyAmount = 100;
-        private int _maxMoneyAmount = 1500;
-        private Dictionary<string, int> _basket;
+        private int _minMoneyAmount;
+        private int _maxMoneyAmount;
+        private List<Product> _basket;
+        private AllProducts _allProducts;
+
+        public int Money => _money;
 
         public Customer()
         {
-            _random.Next(_minMoneyAmount, _maxMoneyAmount);
-            _basket = new Dictionary<string, int>();
+            _random = new Random();
+            _minMoneyAmount = 100;
+            _maxMoneyAmount = 1500;
+            _money = _random.Next(_minMoneyAmount, _maxMoneyAmount);
+            _allProducts = new AllProducts();
+            _basket = new List<Product>() { };
+            FillBasket();
         }
 
-        public void FillBasket(int countOfProducts)
+        public void ShowBasket()
         {
-            
+            Console.WriteLine("Корзина покупателя:");
+            for (int i = 0; i < _basket.Count; i++)
+            {
+                Console.WriteLine(i + ". " + _basket[i].Name + " - " + _basket[i].Price);
+            }
+        }
+
+        public void RemoveRandomProduct()
+        {
+            int removeindex = _random.Next(0, _basket.Count);
+            Console.WriteLine(_basket[removeindex].Name + " убран");
+            _basket.RemoveAt(removeindex);
+        }
+
+        public int ShowCount()
+        {
+            return _basket.Count;
+        }
+
+        public Product ShowProduct(int id)
+        {
+            return _basket[id];
+        }
+
+        private void FillBasket()
+        {
+            int productsCount = _random.Next(1, _allProducts.ShowCount());
+            for (int i = 0; i < productsCount; i++)
+            {
+                _basket[i] = _allProducts.ShowProduct(_random.Next(0, _allProducts.ShowCount()));
+            }
         }
     }
 
@@ -39,41 +124,40 @@ namespace SuperMarketAdmin
         public string Name => _name;
         public int Price => _price;
 
-        public Product()
+        public Product(string name, int price)
         {
             _name = name;
             _price = price;
         }
-        
     }
+
     class AllProducts
     {
-        private Dictionary<string, int> _products = new Dictionary<string, int>();
+        private List<Product> _allProducts;
 
         public AllProducts()
         {
-            _products.Add("Сыр", 250);
-            _products.Add("Молоко", 150);
-            _products.Add("Хлеб", 50);
-            _products.Add("Шоколадка", 75);
-            _products.Add("Яйца", 125);
-            _products.Add("Колбаса", 300);
-            _products.Add("Тесто", 100);
-            _products.Add("Газировка", 60);
-            _products.Add("Чипсы", 55);
-            _products.Add("Рыба", 280);
-            _products.Add("Горошек", 70);
-            _products.Add("Кукуруза", 70);
+            _allProducts = new List<Product>()
+            {
+                new Product("Молоко", 80),
+                new Product("Яйца", 100),
+                new Product("Колбаса", 200),
+                new Product("Баранки", 75),
+                new Product("Хлеб", 30),
+                new Product("Мороженое", 50),
+                new Product("Тесто", 80),
+                new Product("Сыр", 90)
+            };
         }
 
         public int ShowCount()
         {
-            return _products.Count;
+            return _allProducts.Count;
         }
 
-        public string ShowTitle(int id)
+        public Product ShowProduct(int id)
         {
-            return _products.Comparer
+            return _allProducts[id];
         }
     }
 }
