@@ -5,9 +5,9 @@ namespace Fight
 {
     class Program
     {
-        static private int firstFighterId = 5;
-        static private int secondFighterId = 5;
-        static private List<Fighter> fighters = new List<Fighter>()
+        private static int _firstFighterId = 5;
+        private static int _secondFighterId = 5;
+        private static List<Fighter> _fighters = new List<Fighter>()
         {
             new Berserk(100.0, 5.0, 5, 2),
             new Boxer(100.0, 5.0, 5),
@@ -17,28 +17,28 @@ namespace Fight
         };
         static void Main(string[] args)
         {
-            ChooseFighter(ref firstFighterId);
-            ChooseFighter(ref secondFighterId);
+            ChooseFighter(ref _firstFighterId);
+            ChooseFighter(ref _secondFighterId);
 
-            while (fighters[firstFighterId].IsAlive == true && fighters[secondFighterId].IsAlive == true)
+            while (_fighters[_firstFighterId].IsAlive == true && _fighters[_secondFighterId].IsAlive == true)
             {
                 Console.Clear();
-                fighters[firstFighterId].ShowStat();
-                fighters[secondFighterId].ShowStat();
-                fighters[firstFighterId].Attack(fighters[secondFighterId]);
+                _fighters[_firstFighterId].ShowStat();
+                _fighters[_secondFighterId].ShowStat();
+                _fighters[_firstFighterId].Attack(_fighters[_secondFighterId]);
                 Console.ReadKey();
-                fighters[secondFighterId].Attack(fighters[firstFighterId]);
+                _fighters[_secondFighterId].Attack(_fighters[_firstFighterId]);
                 Console.ReadKey();
             }
         }
         static void ChooseFighter(ref int fighterId)
         {
             Console.WriteLine("Выберете бойца");
-            for (int i = 0; i < fighters.Count; i++)
+            for (int i = 0; i < _fighters.Count; i++)
             {
-                if (i != firstFighterId)
+                if (i != _firstFighterId)
                 {
-                    Console.WriteLine(i + ". " + fighters[i].ShowName());
+                    Console.WriteLine(i + ". " + _fighters[i].ShowName());
                 }
             }
 

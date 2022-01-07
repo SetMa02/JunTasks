@@ -30,6 +30,22 @@ namespace SuperMarketAdmin
             
         }
     }
+
+    class Product
+    {
+        private string _name;
+        private int _price;
+
+        public string Name => _name;
+        public int Price => _price;
+
+        public Product()
+        {
+            _name = name;
+            _price = price;
+        }
+        
+    }
     class AllProducts
     {
         private Dictionary<string, int> _products = new Dictionary<string, int>();
@@ -48,9 +64,16 @@ namespace SuperMarketAdmin
             _products.Add("Рыба", 280);
             _products.Add("Горошек", 70);
             _products.Add("Кукуруза", 70);
-            _products.
         }
-        
-        
+
+        public int ShowCount()
+        {
+            return _products.Count;
+        }
+
+        public string ShowTitle(int id)
+        {
+            return _products.Comparer
+        }
     }
 }
