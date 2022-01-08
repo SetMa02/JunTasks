@@ -25,6 +25,7 @@ namespace EpicWar
 
             while (firstConflictSide.IsWin == false || secondConflictSide.IsWin == false)
             {
+                firstConflictSide.RemoveDeadTroopers();
                 firstConflictSide.War(secondConflictSide);
                 secondConflictSide.RemoveDeadTroopers();
                 secondConflictSide.War(firstConflictSide);
@@ -121,13 +122,15 @@ namespace EpicWar
         public void War(ConflictSide conflictSide)
         {
             Console.WriteLine(_name + " войска = " + _troopers.Count);
-            int attackTropperId;
-            int conflictTrooperId;
-            attackTropperId = Program.Random.Next(0, _troopers.Count);
-            do
+            int attackTropperId = Program.Random.Next(0, _troopers.Count);
+            int conflictTrooperId = Program.Random.Next(0, conflictSide.ShowArmyCount());
+         
+            Console.WriteLine(conflictTrooperId);
+            while (ShowTrooper(conflictTrooperId).IsAlive == false)
             {
+                
                 conflictTrooperId = Program.Random.Next(0, conflictSide.ShowArmyCount());
-            } while (ShowTrooper(conflictTrooperId).IsAlive == false);
+            }
             
             Console.WriteLine(_name +" атаковала " + conflictSide.Name + " уроном равный " + _troopers[attackTropperId].Damage);
             _troopers[attackTropperId].Attack(conflictSide.ShowTrooper(conflictTrooperId));
