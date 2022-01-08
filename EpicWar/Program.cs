@@ -6,303 +6,155 @@ namespace EpicWar
 {
     class Program
     {
+        public static readonly Random Random = new Random();
         static void Main(string[] args)
         {
-            World world = new World();
+            string sideName;
+            int sideTroopersCount;
+            Console.WriteLine("Введите название первого взвода:");
+            sideName = Console.ReadLine();
+            Console.WriteLine("Введите количество содлат первого взвода:");
+            sideTroopersCount = AskInput();
+            ConflictSide firstConflictSide = new ConflictSide(sideTroopersCount, sideName);
+            
+            Console.WriteLine("Введите название второго взвода:");
+            sideName = Console.ReadLine();
+            Console.WriteLine("Введите количество содлат второго взвода:");
+            sideTroopersCount = AskInput();
+            ConflictSide secondConflictSide = new ConflictSide(sideTroopersCount, sideName);
 
-            world.CreateCountry("ОРДА");
-            world.CreateCountry("АЛЬЯНС");
-
-            foreach (var country in world.GetCountries())
+            while (firstConflictSide.IsWin == false || secondConflictSide.IsWin == false)
             {
-                int number = World.Rand.Next(101);
-                country.CreatePlatoon(number, 20);
-                foreach (var platoon in country.GetPlatoons())
+                firstConflictSide.War(secondConflictSide);
+                secondConflictSide.RemoveDeadTroopers();
+                secondConflictSide.War(firstConflictSide);
+                firstConflictSide.RemoveDeadTroopers();
+            }
+            CheckWinner(firstConflictSide);
+            CheckWinner(secondConflictSide);
+        }
+
+        private static void CheckWinner(ConflictSide conflictSide)
+        {
+            if (conflictSide.IsWin == true)
+            {
+                 Console.WriteLine("Ура победил " + conflictSide.Name);
+            }
+        }
+
+        private static int AskInput()
+        {
+            bool isCorrect = false;
+            int result = 0;
+            while (isCorrect == false)
+            {
+                if (Int32.TryParse(Console.ReadLine(), out result) == false)
                 {
-                    platoon.CreateWarriors(number, country.Name);
-                    platoon.ShowWarriors();
+                    Console.WriteLine("Неверный ввод!");
+                }
+                else
+                {
+                    isCorrect = true;
                 }
             }
 
-            War war = new War(world.GetCountries());
-            war.Start();
-            Console.ReadLine();
+            return result;
         }
     }
 
-    class World
+    class ConflictSide
     {
-        public static Random Rand = new Random();
-        private List<Country> _countries = new List<Country>();
+        private string _name;
+        private List<Trooper> _troopers;
+        private int _maxTropperHealth;
+        private int _maxTropperDamage;
 
-        public void CreateCountry(string name)
+        public bool IsWin => !_troopers.Any(); 
+
+        public string Name => _name;
+
+        public ConflictSide(int troopersCount, string name)
         {
-            _countries.Add(new Country(name));
-        }
-
-        public List<Country> GetCountries()
-        {
-            return _countries.ToList<Country>();
-        }
-    }
-
-    class War
-    {
-        private List<Country> _countries = new List<Country>();
-        private List<Battle> _battles = new List<Battle>();
-
-        public War(List<Country> countries)
-        {
-            _countries = countries;
-        }
-
-        public void Start()
-        {
-            for (int i = 1; GetLifeCountries().Count > 1; i++)
+            _troopers = new List<Trooper>();
+            _maxTropperHealth = 250;
+            _maxTropperDamage = 250;
+            _name = name;
+            for (int i = 1; i < troopersCount; i++)
             {
-                Console.WriteLine("БИТВА " + i);
-                ExecuteBattle();
+                _troopers.Add(new Trooper(Program.Random.Next(1, _maxTropperHealth), Program.Random.Next(0, _maxTropperDamage)));
             }
         }
 
-        private void ExecuteBattle()
+        public int ShowArmyCount()
         {
-            var battle = new Battle(_countries);
-            _battles.Add(battle);
-            battle.ExecuteThis();
+            return _troopers.Count;
         }
 
-        private List<Country> GetLifeCountries()
+        public Trooper ShowTrooper(int index)
         {
-            List<Country> lifeCountries = new List<Country>();
-            foreach (var country in _countries)
+            return _troopers[index];
+        }
+
+        public void RemoveDeadTroopers()
+        {
+            Queue<int> deadTroppers = new Queue<int>();
+            for (int i = 0; i < _troopers.Count; i++)
             {
-                foreach (var platoon in country.GetPlatoons())
+                if (_troopers[i].IsAlive == false)
                 {
-                    if (platoon.CountWarriors > 0)
-                    {
-                        lifeCountries.Add(country);
-                    }
+                    deadTroppers.Enqueue(i);
                 }
             }
 
-            return lifeCountries.ToList<Country>();
-        }
-    }
-
-    class Battle
-    {
-        private List<Country> _countries = new List<Country>();
-
-        public Battle(List<Country> countries)
-        {
-            _countries = countries;
-        }
-
-        private List<Warrior> GetAllWarriors()
-        {
-            List<Warrior> allWarrior = new List<Warrior>();
-            foreach (var country in _countries)
+            int countDead = deadTroppers.Count;
+            if (deadTroppers.Any() == true)
             {
-                foreach (var platoon in country.GetPlatoons())
+                while (!deadTroppers.Any())
                 {
-                    foreach (var warrior in platoon.GetWarriors())
-                    {
-                        allWarrior.Add(warrior);
-                    }
+                    _troopers.RemoveAt(deadTroppers.Dequeue());
                 }
+                Console.WriteLine("убрано " + countDead);
+                _troopers.RemoveAt(deadTroppers.Dequeue());
             }
-
-            return allWarrior.ToList<Warrior>();
         }
-
-        public void ExecuteThis()
+        
+        public void War(ConflictSide conflictSide)
         {
-            var allwarriors = GetAllWarriors();
-            foreach (var warrior in GetAllWarriors())
+            Console.WriteLine(_name + " войска = " + _troopers.Count);
+            int attackTropperId;
+            int conflictTrooperId;
+            attackTropperId = Program.Random.Next(0, _troopers.Count);
+            do
             {
-                warrior.Attack(allwarriors);
-            }
-
-            foreach (var country in _countries)
-            {
-                foreach (var platoon in country.GetPlatoons())
-                {
-                    platoon.BuryItWarriors();
-                    Console.WriteLine(
-                        $"{country.Name} - Потери: {platoon.MaxCountWarriors - platoon.CountWarriors} воинов");
-                    platoon.ShowWarriors();
-                }
-            }
+                conflictTrooperId = Program.Random.Next(0, conflictSide.ShowArmyCount());
+            } while (ShowTrooper(conflictTrooperId).IsAlive == false);
+            
+            Console.WriteLine(_name +" атаковала " + conflictSide.Name + " уроном равный " + _troopers[attackTropperId].Damage);
+            _troopers[attackTropperId].Attack(conflictSide.ShowTrooper(conflictTrooperId));
         }
     }
 
-    class Country
+    class Trooper
     {
-        private List<Platoon> _platoons = new List<Platoon>();
+        private int _health;
+        private int _damage;
+        public int Health => _health;
+        public int Damage => _damage;
+        public bool IsAlive => Health > 0;
 
-        public string Name { get; }
-
-        public Country(string name)
+        public Trooper(int health, int damage)
         {
-            Name = name;
+            _health = health;
+            _damage = damage;
+        }
+        public void Attack(Trooper trooper)
+        {
+            trooper.GetDamage(_damage);
         }
 
-        public void CreatePlatoon(int number, int maxCount)
+        public void GetDamage(int damage)
         {
-            _platoons.Add(new Platoon(number, maxCount));
-        }
-
-        public List<Platoon> GetPlatoons()
-        {
-            return _platoons.ToList<Platoon>();
-        }
-    }
-
-    class Platoon
-    {
-        private List<Warrior> _warriors = new List<Warrior>();
-        private List<IWeapon> _weapons = new List<IWeapon>() {new Rifle(50), new MachineGun(20)};
-
-        public int Number { get; }
-
-        public int CountWarriors
-        {
-            get { return _warriors.Count; }
-        }
-
-        public int MaxCountWarriors { get; }
-
-        public Platoon(int number, int maxCount)
-        {
-            Number = number;
-            MaxCountWarriors = maxCount;
-        }
-
-        public List<Warrior> GetWarriors()
-        {
-            return _warriors.ToList<Warrior>();
-        }
-
-        public void CreateWarriors(int numberPlatoon, string nationality)
-        {
-            for (int i = 1; i <= MaxCountWarriors; i++)
-            {
-                _warriors.Add(new Warrior(i, numberPlatoon, nationality, GiveWeapon()));
-            }
-        }
-
-        public void ShowWarriors()
-        {
-            foreach (var warrior in _warriors)
-            {
-                Console.WriteLine(warrior.ShowInfo());
-            }
-        }
-
-        public void BuryItWarriors()
-        {
-            _warriors.RemoveAll(warrior => warrior.Health <= 0);
-        }
-
-        private IWeapon GiveWeapon()
-        {
-            int numberWeapon = World.Rand.Next(_weapons.Count);
-            IWeapon weapon = _weapons[numberWeapon];
-            return weapon;
-        }
-    }
-
-    class Warrior
-    {
-        public int Health;
-
-        public int Number { get; }
-        public int NumberPlatoon { get;}
-        public string Nationality { get; }
-        public IWeapon Weapon { get;  }
-
-        public Warrior(int number, int numberPlatoon, string nationality, IWeapon weapon, int health = 100)
-        {
-            Number = number;
-            NumberPlatoon = numberPlatoon;
-            Nationality = nationality;
-            Health = health;
-            Weapon = weapon;
-        }
-
-        public string ShowInfo()
-        {
-            return $"{Nationality}.{NumberPlatoon}.{Number}.{Weapon.Name}.{Health}";
-        }
-
-        public void Attack(List<Warrior> targets)
-        {
-            Weapon.Attack(this, targets);
-        }
-    }
-
-    interface IWeapon
-    {
-        string Name { get; }
-        public void Attack(Warrior warrior, List<Warrior> targets);
-    }
-
-    class Rifle : IWeapon
-    {
-        string IWeapon.Name
-        {
-            get { return "Копьё"; }
-        }
-
-        public int Damage;
-
-        public Rifle(int damage)
-        {
-            Damage = damage;
-        }
-
-        public void Attack(Warrior warrior, List<Warrior> targets)
-        {
-            List<Warrior> enemies = new List<Warrior>();
-            foreach (var t in targets)
-            {
-                if (warrior.Nationality != t.Nationality)
-                {
-                    enemies.Add(t);
-                }
-            }
-
-            var target = enemies[World.Rand.Next(enemies.Count)];
-            if (target != null)
-            {
-                target.Health -= Damage;
-                Console.WriteLine($"{warrior.ShowInfo()} атакует на {Damage} по {target.ShowInfo()}");
-            }
-        }
-    }
-
-    class MachineGun : IWeapon
-    {
-        public int Damage;
-
-        string IWeapon.Name
-        {
-            get { return "Меч"; }
-        }
-
-        public MachineGun(int damage)
-        {
-            Damage = damage;
-        }
-
-        public void Attack(Warrior warrior, List<Warrior> targets)
-        {
-            var rifle = new Rifle(Damage);
-            for (var i = 0; i < 3; i++)
-            {
-                rifle.Attack(warrior, targets);
-            }
+            _health -= damage;
         }
     }
 }
