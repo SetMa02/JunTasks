@@ -33,9 +33,11 @@ namespace SuperMarketAdmin
 
                 Console.WriteLine("Денег хватает \n" +
                                   "Следуйщий покупатель!");
-                _customers.Remove(customer);
+                Console.ReadKey();
+                Console.Clear();
             }
 
+            _customers = null;
             Console.WriteLine("Посетитили кончились");
         }
 
@@ -75,7 +77,6 @@ namespace SuperMarketAdmin
             _minMoneyAmount = 100;
             _maxMoneyAmount = 1500;
             _money = _random.Next(_minMoneyAmount, _maxMoneyAmount);
-            _allProducts = new AllProducts();
             _basket = new List<Product>() { };
             FillBasket();
         }
@@ -108,10 +109,11 @@ namespace SuperMarketAdmin
 
         private void FillBasket()
         {
+            _allProducts = new AllProducts();
             int productsCount = _random.Next(1, _allProducts.ShowCount());
             for (int i = 0; i < productsCount; i++)
             {
-                _basket[i] = _allProducts.ShowProduct(_random.Next(0, _allProducts.ShowCount()));
+                _basket.Add(_allProducts.ShowProduct(_random.Next(0, _allProducts.ShowCount())));
             }
         }
     }
@@ -137,17 +139,15 @@ namespace SuperMarketAdmin
 
         public AllProducts()
         {
-            _allProducts = new List<Product>()
-            {
-                new Product("Молоко", 80),
-                new Product("Яйца", 100),
-                new Product("Колбаса", 200),
-                new Product("Баранки", 75),
-                new Product("Хлеб", 30),
-                new Product("Мороженое", 50),
-                new Product("Тесто", 80),
-                new Product("Сыр", 90)
-            };
+            _allProducts = new List<Product>();
+            _allProducts.Add(new Product("Молоко", 80));
+            _allProducts.Add(new Product("Яйца", 100));
+            _allProducts.Add(new Product("Колбаса", 200));
+            _allProducts.Add(new Product("Баранки", 75));
+            _allProducts.Add(new Product("Хлеб", 30));
+            _allProducts.Add(new Product("Мороженое", 50));
+            _allProducts.Add(new Product("Тесто", 80));
+            _allProducts.Add(new Product("Сыр", 90));
         }
 
         public int ShowCount()

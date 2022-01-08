@@ -66,6 +66,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarketAdmin", "SuperMa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpicWar", "EpicWar\EpicWar.csproj", "{69BE89FA-CEDB-4407-8E0B-7BE39C25C361}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aquarium", "aquarium\aquarium.csproj", "{705887C0-98C3-4FF1-8A3D-35012B5D82E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -204,5 +206,9 @@ Global
 		{69BE89FA-CEDB-4407-8E0B-7BE39C25C361}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69BE89FA-CEDB-4407-8E0B-7BE39C25C361}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69BE89FA-CEDB-4407-8E0B-7BE39C25C361}.Release|Any CPU.Build.0 = Release|Any CPU
+		{705887C0-98C3-4FF1-8A3D-35012B5D82E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{705887C0-98C3-4FF1-8A3D-35012B5D82E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{705887C0-98C3-4FF1-8A3D-35012B5D82E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{705887C0-98C3-4FF1-8A3D-35012B5D82E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
