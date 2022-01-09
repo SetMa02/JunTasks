@@ -9,24 +9,16 @@ namespace SuperMarketAdmin
 {
     class Program
     {
-        private static Queue<Customer> _customers;
-        
-        public static  readonly Random Random = new Random();
         static void Main(string[] args)
         {
-            
             int minMoney = 100;
             int maxmoney = 1500;
             int customers = 10;
-            _customers = new Queue<Customer>();
-            for (int i = 0; i < customers; i++)
-            {
-                _customers.Enqueue(new Customer(Random.Next(minMoney, maxmoney)));
-            }
+            SuperMarket superMarket = new SuperMarket(customers, minMoney, maxmoney);
 
-            while (_customers.Any() == true)
+            while (superMarket.isThereCustomers() == true)
             {
-                Customer customer = _customers.Dequeue();
+                Customer customer = superMarket.GetCustomer();
                 Console.WriteLine("К вам подходит покупатель");
                 customer.ShowBasket();
                 Console.WriteLine("У покупателя " + customer.Money + " денег");
@@ -37,32 +29,54 @@ namespace SuperMarketAdmin
                     customer.RemoveRandomProduct();
                 }
 
+                customer.SubtrackMoney(customer.SummAllProducts());
                 Console.WriteLine("Денег хватает \n" +
                                   "Следуйщий покупатель!");
                 Console.ReadKey();
-                _customers.Dequeue();
                 Console.Clear();
             }
+
             Console.WriteLine("Посетитили кончились");
-           
         }
 
         private static bool CheckEnoughMoney(Customer customer)
         {
             bool isEnough = false;
-            int totalProductCost = 0;
-            for (int i = 0; i < customer.ShowCount(); i++)
-            {
-                totalProductCost += customer.GetProduct(i).Price;
-            }
 
-            Console.WriteLine("Покупок вышло на сумму = " + totalProductCost);
-            if (customer.Money >= totalProductCost)
+            if (customer.Money >= customer.SummAllProducts())
             {
+                Console.WriteLine("Покупок на сумму " + customer.SummAllProducts());
                 isEnough = true;
             }
 
             return isEnough;
+        }
+    }
+
+    class SuperMarket
+    {
+        private Storge _allProducts;
+        private Queue<Customer> _customers;
+
+        public static readonly Random Random = new Random();
+
+        public SuperMarket(int customersCount, int minMoney, int maxmoney)
+        {
+            _customers = new Queue<Customer>();
+            for (int i = 0; i < customersCount; i++)
+            {
+                _customers.Enqueue(new Customer(Random.Next(minMoney, maxmoney)));
+            }
+        }
+
+        public Customer GetCustomer()
+        {
+            return _customers.Dequeue();
+        }
+
+        public bool isThereCustomers()
+        {
+            return _customers.Any();
         }
     }
 
@@ -72,7 +86,7 @@ namespace SuperMarketAdmin
         private int _minMoneyAmount;
         private int _maxMoneyAmount;
         private List<Product> _basket;
-        private AllProducts _allProducts;
+        private Storge _storge;
 
         public int Money => _money;
 
@@ -81,6 +95,11 @@ namespace SuperMarketAdmin
             _money = money;
             _basket = new List<Product>() { };
             FillBasket();
+        }
+
+        public void SubtrackMoney(int moneyAmount)
+        {
+            _money -= moneyAmount;
         }
 
         public void ShowBasket()
@@ -92,14 +111,26 @@ namespace SuperMarketAdmin
             }
         }
 
+        public int SummAllProducts()
+        {
+            int totalProductCost = 0;
+            foreach (var product in _basket)
+            {
+                totalProductCost += product.Price;
+            }
+
+            return totalProductCost;
+        }
+
+
         public void RemoveRandomProduct()
         {
-            int removeindex = Program.Random.Next(0, _basket.Count);
+            int removeindex = SuperMarket.Random.Next(0, _basket.Count);
             Console.WriteLine(_basket[removeindex].Name + " убран");
             _basket.RemoveAt(removeindex);
         }
 
-        public int ShowCount()
+        public int GetCount()
         {
             return _basket.Count;
         }
@@ -111,11 +142,11 @@ namespace SuperMarketAdmin
 
         private void FillBasket()
         {
-            _allProducts = new AllProducts();
-            int productsCount = Program.Random.Next(1, _allProducts.ShowCount());
+            _storge = new Storge();
+            int productsCount = SuperMarket.Random.Next(1, _storge.ShowCount());
             for (int i = 0; i < productsCount; i++)
             {
-                _basket.Add(_allProducts.ShowProduct(Program.Random.Next(0, _allProducts.ShowCount())));
+                _basket.Add(_storge.ShowProduct(SuperMarket.Random.Next(0, _storge.ShowCount())));
             }
         }
     }
@@ -135,11 +166,11 @@ namespace SuperMarketAdmin
         }
     }
 
-    class AllProducts
+    class Storge
     {
         private List<Product> _allProducts;
 
-        public AllProducts()
+        public Storge()
         {
             _allProducts = new List<Product>();
             _allProducts.Add(new Product("Молоко", 80));
