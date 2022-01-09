@@ -22,7 +22,8 @@ namespace aquarium
                 Console.WriteLine("Что делать? \n" +
                                   "1. Добавить рыбку \n" +
                                   "2. убрать рыбку\n" +
-                                  "3. выйти");
+                                  "3. ничего \n" +
+                                  "4. выйти");
                 
                 switch (Console.ReadLine())
                 {
@@ -33,12 +34,16 @@ namespace aquarium
                         RemoveFish(aquarium);
                         break;
                     case "3":
+                        Console.WriteLine("рыбки плавуют");
+                        break;
+                    case "4":
                         isExit = true;
                         break;
                     default:
                         Console.WriteLine("Невенрый ввод");
                         break;
                 }
+                Console.Clear();
             }
         }
         private static void RemoveFish(Aquarium aquarium)
@@ -96,9 +101,9 @@ namespace aquarium
         {
             for (int i = 0; i < _fishes.Count; i++)
             {
-                Console.WriteLine(i +". ");
                 _fishes[i].ShowStat(i);
                 Console.WriteLine();
+                _fishes[i].LiveDecreease();
             }
         }
 
@@ -137,6 +142,11 @@ namespace aquarium
             _lifeTime = lifeTime;
         }
 
+        public void LiveDecreease()
+        {
+            _lifeTime--;
+        }
+        
         public void ShowStat(int index)
         {
             if (IsAlive == true)
