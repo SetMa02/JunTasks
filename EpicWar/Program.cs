@@ -39,8 +39,8 @@ namespace EpicWar
                 }
             }
 
-            CheckWinner(firstConflictSide);
-            CheckWinner(secondConflictSide);
+                CheckWinner(firstConflictSide);
+                CheckWinner(secondConflictSide);
         }
 
         private static void CheckWinner(ConflictSide conflictSide)

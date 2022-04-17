@@ -13,7 +13,7 @@ namespace SuperMarketAdmin
         {
             int maxmoney = 1500;
             int customers = 10;
-            
+
             SuperMarket superMarket = new SuperMarket(customers, maxmoney);
 
             while (superMarket.HaveCustomers == true)
@@ -56,25 +56,25 @@ namespace SuperMarketAdmin
     class SuperMarket
     {
         public static readonly Random Random = new Random();
-        
-        private Storge _allProducts;
-        private Queue<Customer> _customers;
         public bool HaveCustomers => _customers.Count > 0;
 
-        public SuperMarket(int customersCount, int maxmoney)
+        private Storge _allProducts;
+        private Queue<Customer> _customers;
+
+        public SuperMarket(int customersCount, int maxMoney)
         {
             _allProducts = new Storge();
             _customers = new Queue<Customer>();
-            int customerProductsCount = Random.Next(0,_allProducts.GetProductCount());
+            int customerProductsCount = Random.Next(0, _allProducts.GetProductCount());
             for (int i = 0; i < customersCount; i++)
             {
-                Customer customer = new Customer(Random.Next(0, maxmoney));
+                Customer customer = new Customer(Random.Next(0, maxMoney));
                 for (int j = 0; j < customerProductsCount; j++)
                 {
                     int productId = Random.Next(0, _allProducts.ProductCount);
                     customer.AddToBasked(_allProducts.GetProduct(productId));
                 }
-                
+
                 _customers.Enqueue(customer);
             }
         }
@@ -124,7 +124,6 @@ namespace SuperMarketAdmin
             return totalProductCost;
         }
 
-
         public void RemoveRandomProduct()
         {
             int removeindex = SuperMarket.Random.Next(0, _basket.Count);
@@ -150,7 +149,7 @@ namespace SuperMarketAdmin
 
         public string Name => _name;
         public int Price => _price;
-        
+
         public Product(string name, int price)
         {
             _name = name;
@@ -175,7 +174,7 @@ namespace SuperMarketAdmin
             _allProducts.Add(new Product("Тесто", 80));
             _allProducts.Add(new Product("Сыр", 90));
         }
-        
+
         public Product GetProduct(int id)
         {
             return _allProducts[id];
