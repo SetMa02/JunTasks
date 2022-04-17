@@ -11,10 +11,10 @@ namespace SuperMarketAdmin
     {
         static void Main(string[] args)
         {
-            int maxmoney = 1500;
+            int maxMoney = 1500;
             int customers = 10;
 
-            SuperMarket superMarket = new SuperMarket(customers, maxmoney);
+            SuperMarket superMarket = new SuperMarket(customers, maxMoney);
 
             while (superMarket.HaveCustomers == true)
             {

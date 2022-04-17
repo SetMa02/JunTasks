@@ -39,15 +39,18 @@ namespace EpicWar
                 }
             }
 
-                CheckWinner(firstConflictSide);
-                CheckWinner(secondConflictSide);
+                CheckWinner(firstConflictSide,secondConflictSide);
         }
 
-        private static void CheckWinner(ConflictSide conflictSide)
+        private static void CheckWinner(ConflictSide firstConflictSide, ConflictSide secondConflictSide)
         {
-            if (conflictSide.CheckAlive() == true)
+            if (firstConflictSide.CheckAlive() == true)
             {
-                Console.WriteLine("Ура победил " + conflictSide.Name);
+                Console.WriteLine("Ура победил " + firstConflictSide.Name);
+            }
+            else if (secondConflictSide.CheckAlive() == true)
+            {
+                Console.WriteLine("Ура победил " + secondConflictSide.Name);
             }
         }
 
