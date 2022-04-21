@@ -61,6 +61,7 @@ namespace EpicWar
         {
             bool isCorrect = false;
             int result = 0;
+            
             while (isCorrect == false)
             {
                 if (Int32.TryParse(Console.ReadLine(), out result) == false)
@@ -105,6 +106,7 @@ namespace EpicWar
         public void RemoveDeadTroopers()
         {
             Queue<int> deadTroppers = new Queue<int>();
+            
             for (int i = 0; i < _troopers.Count; i++)
             {
                 if (_troopers[i].IsAlive == false)
