@@ -13,9 +13,9 @@ namespace SuperMarketAdmin
         {
             int maxMoney = 1500;
             int customers = 10;
-
+            
             SuperMarket superMarket = new SuperMarket(customers, maxMoney);
-
+            
             while (superMarket.HaveCustomers == true)
             {
                 Customer customer = superMarket.GetCustomer();

@@ -14,6 +14,7 @@ namespace EpicWar
             int sideTroopersCount;
             int maxTrooperhealth = 250;
             int maxTrooperDamage = 250;
+
             Console.WriteLine("Введите название первого взвода:");
             sideName = Console.ReadLine();
             Console.WriteLine("Введите количество содлат первого взвода:");
@@ -26,18 +27,20 @@ namespace EpicWar
             sideTroopersCount = AskInput();
             ConflictSide secondConflictSide = new ConflictSide(sideName, maxTrooperhealth, maxTrooperDamage);
             secondConflictSide.CreateTroopers(sideTroopersCount);
+            War firstSide = new War(firstConflictSide, secondConflictSide);
+            War secondSide = new War(secondConflictSide, firstConflictSide);
 
             while (firstConflictSide.IsAlive == true && secondConflictSide.IsAlive == true)
             {
                 if (firstConflictSide.IsAlive == true && secondConflictSide.IsAlive == true)
                 {
-                    firstConflictSide.War(secondConflictSide);
+                   firstSide.Attack();
                     secondConflictSide.RemoveDeadTroopers();
                 }
 
                 if (secondConflictSide.IsAlive == true && firstConflictSide.IsAlive == true)
                 {
-                    secondConflictSide.War(firstConflictSide);
+                   secondSide.Attack();
                     firstConflictSide.RemoveDeadTroopers();
                 }
             }
@@ -45,7 +48,7 @@ namespace EpicWar
             CheckWinner(firstConflictSide, secondConflictSide);
         }
 
-        private static void CheckWinner(ConflictSide firstConflictSide, ConflictSide secondConflictSide)
+        public static void CheckWinner(ConflictSide firstConflictSide, ConflictSide secondConflictSide)
         {
             if (firstConflictSide.IsAlive == true)
             {
@@ -61,7 +64,7 @@ namespace EpicWar
         {
             bool isCorrect = false;
             int result = 0;
-            
+
             while (isCorrect == false)
             {
                 if (Int32.TryParse(Console.ReadLine(), out result) == false)
@@ -98,7 +101,7 @@ namespace EpicWar
             _name = name;
         }
 
-        public Trooper ShowTrooper(int index)
+        public Trooper GetTrooper(int index)
         {
             return _troopers[index];
         }
@@ -106,7 +109,7 @@ namespace EpicWar
         public void RemoveDeadTroopers()
         {
             Queue<int> deadTroppers = new Queue<int>();
-            
+
             for (int i = 0; i < _troopers.Count; i++)
             {
                 if (_troopers[i].IsAlive == false)
@@ -125,7 +128,8 @@ namespace EpicWar
                 }
             }
         }
-
+        
+        /*
         public void War(ConflictSide conflictSide)
         {
             Console.WriteLine(_name + " войска = " + _troopers.Count);
@@ -133,8 +137,9 @@ namespace EpicWar
             int conflictTrooperId = Program.Random.Next(0, conflictSide.ShowArmyCount);
             Console.WriteLine(_name + " атаковала " + conflictSide.Name + " уроном равный " +
                               _troopers[attackTropperId].Damage);
-            _troopers[attackTropperId].Attack(conflictSide.ShowTrooper(conflictTrooperId));
+            _troopers[attackTropperId].Attack(conflictSide.GetTrooper(conflictTrooperId));
         }
+        */
 
         public void CreateTroopers(int troopersCount)
         {
@@ -143,6 +148,28 @@ namespace EpicWar
                 _troopers.Add(new Trooper(Program.Random.Next(1, _maxTropperHealth),
                     Program.Random.Next(0, _maxTropperDamage)));
             }
+        }
+    }
+
+    class War
+    {
+        private ConflictSide firstConflictSide;
+        private ConflictSide secondConflictSide;
+
+        public War(ConflictSide firstConflictSide, ConflictSide secondConflictSide)
+        {
+            this.firstConflictSide = firstConflictSide;
+            this.secondConflictSide = secondConflictSide;
+        }
+
+        public void Attack()
+        {
+            Console.WriteLine(firstConflictSide.Name + " войска = " + firstConflictSide.ShowArmyCount);
+            int attackTropperId = Program.Random.Next(0, firstConflictSide.ShowArmyCount);
+            int conflictTrooperId = Program.Random.Next(0, secondConflictSide.ShowArmyCount);
+            Console.WriteLine(firstConflictSide.Name + " атаковала " + secondConflictSide.Name + " уроном равный " +
+                              firstConflictSide.GetTrooper(attackTropperId).Damage);
+            firstConflictSide.GetTrooper(attackTropperId).Attack(secondConflictSide.GetTrooper(conflictTrooperId));
         }
     }
 
