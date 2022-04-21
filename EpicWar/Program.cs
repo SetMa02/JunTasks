@@ -153,23 +153,23 @@ namespace EpicWar
 
     class War
     {
-        private ConflictSide firstConflictSide;
-        private ConflictSide secondConflictSide;
+        private ConflictSide _firstConflictSide;
+        private ConflictSide _secondConflictSide;
 
         public War(ConflictSide firstConflictSide, ConflictSide secondConflictSide)
         {
-            this.firstConflictSide = firstConflictSide;
-            this.secondConflictSide = secondConflictSide;
+            _firstConflictSide = firstConflictSide;
+            _secondConflictSide = secondConflictSide;
         }
 
         public void Attack()
         {
-            Console.WriteLine(firstConflictSide.Name + " войска = " + firstConflictSide.ShowArmyCount);
-            int attackTropperId = Program.Random.Next(0, firstConflictSide.ShowArmyCount);
-            int conflictTrooperId = Program.Random.Next(0, secondConflictSide.ShowArmyCount);
-            Console.WriteLine(firstConflictSide.Name + " атаковала " + secondConflictSide.Name + " уроном равный " +
-                              firstConflictSide.GetTrooper(attackTropperId).Damage);
-            firstConflictSide.GetTrooper(attackTropperId).Attack(secondConflictSide.GetTrooper(conflictTrooperId));
+            Console.WriteLine(_firstConflictSide.Name + " войска = " + _firstConflictSide.ShowArmyCount);
+            int attackTropperId = Program.Random.Next(0, _firstConflictSide.ShowArmyCount);
+            int conflictTrooperId = Program.Random.Next(0, _secondConflictSide.ShowArmyCount);
+            Console.WriteLine(_firstConflictSide.Name + " атаковала " + _secondConflictSide.Name + " уроном равный " +
+                              _firstConflictSide.GetTrooper(attackTropperId).Damage);
+            _firstConflictSide.GetTrooper(attackTropperId).Attack(_secondConflictSide.GetTrooper(conflictTrooperId));
         }
     }
 
