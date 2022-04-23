@@ -1,4 +1,6 @@
-﻿namespace ZooPark
+﻿using System;
+
+namespace ZooPark
 {
     internal class Program
     {
@@ -6,6 +8,11 @@
         {
             
         }
+    }
+
+    class Zoo
+    {
+        
     }
 
     class Aviary
@@ -18,9 +25,27 @@
         private bool _gender;
         private string _sound;
 
-        public Animal(bool gender, )
+        public Animal(bool gender, string sound)
         {
-            
+            _gender = gender;
+            _sound = sound;
+        }
+
+        public void GetSound()
+        {
+            Console.WriteLine(_sound);
+        }
+
+        public void GetGender()
+        {
+            if (_gender == true)
+            {
+                Console.WriteLine("Мальчик");
+            }
+            else
+            {
+                Console.WriteLine("Девочка");
+            }
         }
     }
 }
