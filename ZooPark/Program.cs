@@ -10,8 +10,8 @@ namespace ZooPark
         {
             int maxAnimalCount = 5;
             bool isExit = false;
-
             Zoo zoo = new Zoo(5);
+            
             zoo.CreateAviary("Обезьяний дом", "мартышка", "Уаа-Уаа!");
             zoo.CreateAviary("Тигриная скала", "тигр", "Арррр!");
             zoo.CreateAviary("Лягушачий пруд", "лягошка", "ква");
@@ -22,6 +22,7 @@ namespace ZooPark
                 Console.Clear();
                 zoo.ShowAviaries();
                 string chossedAviary = Console.ReadLine();
+                
                 if (chossedAviary == "exit")
                 {
                     isExit = true;
@@ -107,58 +108,58 @@ namespace ZooPark
             foreach (var animal in _animals)
             {
                 Console.Write($"{_animals.IndexOf(animal) + 1}. ");
-                animal.GetName();
+                animal.ShowName();
                 Console.Write(" издает звук: ");
-                animal.GetSound();
+                animal.ShowSound();
                 Console.Write(" и это: ");
-                animal.GetGender();
+                animal.ShowGender();
                 Console.WriteLine();
             }
         }
 
         public void CreateAnimal(string animalName, string sound, int genderId)
         {
-            bool gender;
+            bool isMale;
 
             if (genderId == 1)
             {
-                gender = false;
+                isMale = false;
             }
             else
             {
-                gender = true;
+                isMale = true;
             }
 
-            _animals.Add(new Animal(animalName, sound, gender));
+            _animals.Add(new Animal(animalName, sound, isMale));
         }
     }
 
     class Animal
     {
         private string _name;
-        private bool _gender;
+        private bool _isMale;
         private string _sound;
 
-        public Animal(string name, string sound, bool gender)
+        public Animal(string name, string sound, bool isMale)
         {
-            _gender = gender;
+            _isMale = isMale;
             _sound = sound;
             _name = name;
         }
 
-        public void GetName()
+        public void ShowName()
         {
             Console.Write(_name);
         }
 
-        public void GetSound()
+        public void ShowSound()
         {
             Console.Write(_sound);
         }
 
-        public void GetGender()
+        public void ShowGender()
         {
-            if (_gender == true)
+            if (_isMale == true)
             {
                 Console.Write("Мальчик");
             }
