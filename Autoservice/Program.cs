@@ -23,6 +23,7 @@ namespace Autoservice
                                   "\n2 - проверить склад" +
                                   "\n3 - Сходить в Магазин" +
                                   "\n4 - Выход");
+                
                 switch (Console.ReadLine())
                 {
                     case "1":
@@ -58,7 +59,7 @@ namespace Autoservice
 
             if (Int32.TryParse(Console.ReadLine(), out newPArtId))
             {
-                shop.BuyPart(autoservice,newPArtId);
+                shop.BuyPart(autoservice, newPArtId);
             }
         }
     }
@@ -87,12 +88,13 @@ namespace Autoservice
             Console.WriteLine("Какую детать будем менять?");
             _storge.ShowStorage();
             int partId;
+            
             if (Int32.TryParse(Console.ReadLine(), out partId))
             {
-                RepairCar(car, partId,_shop);
+                RepairCar(car, partId, _shop);
             }
         }
-        
+
         public void ShowStatus()
         {
             Console.WriteLine($"Баланс: {_money}");
@@ -103,6 +105,7 @@ namespace Autoservice
         {
             _money += moneyAmount;
         }
+
         public void ReduceMoney(int reduceAmount)
         {
             _money -= reduceAmount;
@@ -113,19 +116,17 @@ namespace Autoservice
             _storge.AddPart(part);
         }
 
-        private void RepairCar(Car car,int partId, PartsShop shop)
+        private void RepairCar(Car car, int partId, PartsShop shop)
         {
             if (_storge.GetPart(partId) != null)
             {
                 if (car.BrokenPart.Name == _storge.GetPart(partId).Name)
                 {
-                
                     Console.Clear();
                     Console.WriteLine("Ремонт успешен!");
-                    Console.WriteLine("Заменена "+ car.BrokenPart.Name);
+                    Console.WriteLine("Заменена " + car.BrokenPart.Name);
                     Console.WriteLine($"Ваша награда {shop.GetPartPrice(partId) + _workPrice}");
                     AddMoney(shop.GetPartPrice(partId) + _workPrice);
-
                     _storge.RemovePart(_storge.GetPart(partId));
                 }
                 else
@@ -133,7 +134,6 @@ namespace Autoservice
                     Console.WriteLine("Деталь не подходит, вы заплатили штраф " + _workPrice);
                 }
             }
-            
         }
     }
 
@@ -152,7 +152,6 @@ namespace Autoservice
             _parts.Add(new Part("Деталь №4"));
             _parts.Add(new Part("Деталь №5"));
             _parts.Add(new Part("Деталь №6"));
-            
             _price.Add(250);
             _price.Add(1250);
             _price.Add(500);
@@ -170,13 +169,13 @@ namespace Autoservice
         {
             foreach (var part in _parts)
             {
-                Console.WriteLine(_parts.IndexOf(part) + ". " + part.Name+ " цена - " + _price[_parts.IndexOf(part)]);
+                Console.WriteLine(_parts.IndexOf(part) + ". " + part.Name + " цена - " + _price[_parts.IndexOf(part)]);
             }
         }
 
         public void BuyPart(Autoservice autoservice, int partId)
         {
-            if (_parts.Count-1 >= partId && partId >=0 && autoservice.Money >= _price[partId] )
+            if (_parts.Count - 1 >= partId && partId >= 0 && autoservice.Money >= _price[partId])
             {
                 autoservice.ReduceMoney(_price[partId]);
                 autoservice.RefillStorage(_parts[partId]);
@@ -186,7 +185,6 @@ namespace Autoservice
                 Console.WriteLine("Ошибка!");
             }
         }
-
     }
 
     class Storge
@@ -266,7 +264,7 @@ namespace Autoservice
         private void BrokeCar()
         {
             int brokenPart = _random.Next(1, 6);
-            _brokenPart = new Part("Деталь №"+brokenPart);
+            _brokenPart = new Part("Деталь №" + brokenPart);
         }
     }
 }
