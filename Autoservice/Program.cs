@@ -124,11 +124,12 @@ namespace Autoservice
             {
                 if (car.BrokenPart.Name == _storge.GetPart(partId).Name)
                 {
+                    int reward = shop.GetPartPrice(partId) + _workPrice;
                     Console.Clear();
                     Console.WriteLine("Ремонт успешен!");
                     Console.WriteLine("Заменена " + car.BrokenPart.Name);
-                    Console.WriteLine($"Ваша награда {shop.GetPartPrice(partId) + _workPrice}");
-                    AddMoney(shop.GetPartPrice(partId) + _workPrice);
+                    Console.WriteLine($"Ваша награда {reward}");
+                    AddMoney(reward);
                     _storge.RemovePart(_storge.GetPart(partId));
                 }
                 else
