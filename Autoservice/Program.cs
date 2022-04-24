@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace Autoservice
 {
@@ -47,7 +48,8 @@ namespace Autoservice
 
         private static void RepairCar(Autoservice autoservice)
         {
-            Car car = new Car();
+            int maxPartCount = 6;
+            Car car = new Car(maxPartCount);
             autoservice.CheckNewCar(car);
         }
 
@@ -55,11 +57,11 @@ namespace Autoservice
         {
             shop.ShowCatalog();
 
-            int newPArtId;
+            int partId;
 
-            if (Int32.TryParse(Console.ReadLine(), out newPArtId))
+            if (Int32.TryParse(Console.ReadLine(), out partId))
             {
-                shop.BuyPart(autoservice, newPArtId);
+                shop.BuyPart(autoservice, partId);
             }
         }
     }
@@ -196,11 +198,11 @@ namespace Autoservice
             _parts = new List<Part>() { };
         }
 
-        public Part GetPart(int i)
+        public Part GetPart(int partId)
         {
-            if (_parts.Contains(_parts[i]))
+            if (_parts.Contains(_parts[partId]))
             {
-                return _parts[i];
+                return _parts[partId];
             }
             else
             {
@@ -252,18 +254,20 @@ namespace Autoservice
     {
         private Part _brokenPart;
         private Random _random;
+        private int _maxPartCount;
 
         public Part BrokenPart => _brokenPart;
 
-        public Car()
+        public Car(int maxPartCount)
         {
             _random = new Random();
             BrokeCar();
+            _maxPartCount = maxPartCount;
         }
 
         private void BrokeCar()
         {
-            int brokenPart = _random.Next(1, 6);
+            int brokenPart = _random.Next(1, _maxPartCount);
             _brokenPart = new Part("Деталь №" + brokenPart);
         }
     }
