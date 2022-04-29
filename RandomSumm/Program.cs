@@ -7,7 +7,9 @@ namespace RandomSumm
         static void Main(string[] args)
         {
             Random random = new Random();
-            int randomNumber = random.Next(0, 100);
+            int maxNumber = 100;
+            int minNumber = 0;
+            int randomNumber = random.Next(minNumber, maxNumber);
             int summ = 0;
             
             for (int i = 0; i <= randomNumber; i++)
