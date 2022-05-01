@@ -15,6 +15,7 @@ namespace Skobkochki
             var skobki = 0;
             var count = 0;
             var list = new List<int>();
+            
             for (var i = 0; i < input.Length; i++)
             {
                 if (input[i] == '(')
@@ -34,9 +35,15 @@ namespace Skobkochki
                 }
             }
             list.Sort();
+            
             if (skobki == 0)
-                Console.WriteLine(list[list.Count-1] + 1);
-            else Console.WriteLine("Ошибка!");
+            {
+                Console.WriteLine(list[list.Count - 1] + 1);
+            }
+            else
+            {
+                Console.WriteLine("Ошибка!");
+            }
         }
     }
 }
