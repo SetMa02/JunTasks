@@ -11,12 +11,12 @@ namespace N127
             int lastNumber = 27;
             int number = random.Next(firstNumber, lastNumber);
             int count = 0;
-            int minNumber = 100;
+            int minNumber = 99;
             int maxNumber = 1000;
 
-            for (int i = number; i < 1000; i += number)
+            for (int i = number; i < maxNumber; i += number)
             {
-                if (i > 99)
+                if (i > minNumber)
                 {
                     count++;
                 }
