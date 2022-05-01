@@ -11,11 +11,12 @@ namespace Stepen2
             int stepen = 0;
             int minNumber = 4;
             int maxNumber = 100;
+            int increeseStepen = 2;
             int number = random.Next(minNumber, maxNumber);
 
             while (number > result)
             {
-                result *= 2;
+                result *= increeseStepen;
                 stepen++;
             }
             
