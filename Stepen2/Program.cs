@@ -8,19 +8,19 @@ namespace Stepen2
         {
             Random random = new Random();
             int result = 1;
-            int stepen = 0;
+            int degree = 0;
             int minNumber = 4;
             int maxNumber = 100;
-            int increeseStepen = 2;
+            int numberOfBase = 2;
             int number = random.Next(minNumber, maxNumber);
 
             while (number > result)
             {
-                result *= increeseStepen;
-                stepen++;
+                result *= numberOfBase;
+                degree++;
             }
             
-            Console.Write($"{number}, {stepen}, {result}");
+            Console.Write($"{number}, {degree}, {result}");
         }
     }
 }
