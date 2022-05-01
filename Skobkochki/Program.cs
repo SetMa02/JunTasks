@@ -7,38 +7,38 @@ namespace Skobkochki
     {
         static void Main(string[] args)
         {
-            var input = Console.ReadLine();
+            string input = Console.ReadLine();
+            
             if (input.Length == 0){
                 Console.WriteLine("Ошибка!");
                 return;
             }
-            var skobki = 0;
-            var count = 0;
-            var list = new List<int>();
+            int hooksCount = 0;
+            int count = 0;
+            int totalHooks = 0;
             
             for (var i = 0; i < input.Length; i++)
             {
                 if (input[i] == '(')
                 {
-                    skobki++;
+                    hooksCount++;
                 }
                 else if (input[i] == ')')
                 {
                     if ( i != input.Length-1 && input[i+1] != '(' )
                         count++;
-                    skobki--;
+                    hooksCount--;
                 }
-                if (skobki== 0)
+                if (hooksCount== 0)
                 {
-                    list.Add(count);
+                    totalHooks++;
                     count = 0;
                 }
             }
-            list.Sort();
-            
-            if (skobki == 0)
+
+            if (hooksCount == 0)
             {
-                Console.WriteLine(list[list.Count - 1] + 1);
+                Console.WriteLine(totalHooks);
             }
             else
             {
