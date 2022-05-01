@@ -13,12 +13,10 @@ namespace N127
             int count = 0;
             int minNumber = 100;
             int maxNumber = 1000;
-            
-            for(int i = minNumber; i < maxNumber; ++i)
+
+            for (int i = number; i < 1000; i += number)
             {
-                string newNumber = i.ToString();
-        
-                if(int.Parse(newNumber[0].ToString()) + int.Parse(newNumber[1].ToString()) + int.Parse(newNumber[2].ToString()) == number)
+                if (i > 99)
                 {
                     count++;
                 }
