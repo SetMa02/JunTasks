@@ -90,6 +90,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SdvigMassive", "SdvigMassiv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringSplit", "StringSplit\StringSplit.csproj", "{C6F31061-FEC1-4215-BEFD-EA19C4BCFE09}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArraySort", "ArraySort\ArraySort.csproj", "{2B4F1CE9-BBCA-403D-A5A1-0BCD92BA3A98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -276,5 +278,9 @@ Global
 		{C6F31061-FEC1-4215-BEFD-EA19C4BCFE09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6F31061-FEC1-4215-BEFD-EA19C4BCFE09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6F31061-FEC1-4215-BEFD-EA19C4BCFE09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B4F1CE9-BBCA-403D-A5A1-0BCD92BA3A98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B4F1CE9-BBCA-403D-A5A1-0BCD92BA3A98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B4F1CE9-BBCA-403D-A5A1-0BCD92BA3A98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B4F1CE9-BBCA-403D-A5A1-0BCD92BA3A98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
