@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 
 namespace BossFight
@@ -10,49 +11,202 @@ namespace BossFight
         {
             Random random = new Random();
             int healthBoss = 1000;
-            int damageBoss = random.Next(30, 85);
+            int bossMinDamage = 30;
+            int bossMaxDamage = 100;
 
             int healthPlayer = 500;
             int manaPlayer = 200;
-
             bool enableGame = true;
-            string enterSpell;
+            int currentCritRate = 5;
+            int minCritRate = 5;
+            int critMultiplier = 2;
+
+            bool isStunned = false;
+            int sunlightManaCost = 30;
+
+            bool isMeditate = false;
+            int meditatiaHpRecover = 100;
+            int meditationManaRecover = 50;
+            int meditationDebuff = 1;
+
+            int lightningstrikeDamage = 100;
+            int lightningstrikeManaCost = 45;
+
+            bool isPoisened = false;
+            int smokeLong = 5;
+            int smokeMaxLong = 5;
+            int smokeDamage = 20;
+            int smokeManaCost = 60;
+            int smokeTotalDamage = 0;
+
+            int totalMeditationCritRateBuff = 15;
+            int hiddenBladeDamageBuff = 50;
+            int buffDamage = 0;
 
             Console.WriteLine(
-                "Передвами стоит огромный ДедИнсайд он настроен агресивно избежать драки не возможно приготовтесь к битве. \n Ваши доступные заклинания: \n" +
-                "1) sunlight - Ослеплеющий свет, станит противника на 2 хода, отнимает 30 едениц маны.\n" +
-                "2) meditation - Востанавливает игроку 100 ХП и 50 единиц маны, игрок не может применять атакующие спелы 1 ход\n" +
-                "3) lightningstrike - Удар молнией наносит 100 урона, пробуждает ослепленного врага, отнимает 45 едениц маны.\n" +
-                "4) toxicsmoke - Создается ядовитое облако и наносит 20 урона или, если враг ослеплен 50, в течении 5ти ходов, отнимает 60 единиц маны.\n");
+                $"Передвами стоит огромный ДедИнсайд он настроен агресивно избежать драки не возможно приготовтесь к битве. \n Ваши доступные заклинания: \n" +
+                $"1) sunlight - Ослеплеющий свет, станит противника на 2 хода, отнимает {sunlightManaCost} едениц маны.\n" +
+                $"2) meditation - Востанавливает игроку {meditatiaHpRecover} ХП и {meditationManaRecover} единиц маны, игрок не может применять атакующие спелы {meditationDebuff} ход\n" +
+                $"3) lightningstrike - Удар молнией наносит {lightningstrikeDamage} урона, пробуждает ослепленного врага, отнимает {lightningstrikeManaCost} едениц маны.\n" +
+                $"4) toxicsmoke - Создается ядовитое облако и наносит {smokeDamage} урона или, если враг ослеплен {smokeDamage * 2}, в течении {smokeLong} ходов, отнимает {smokeManaCost} единиц маны.\n");
 
-            while (enableGame)
+            Console.WriteLine("Во время медитации вы можете использовать следуйщие заклинания: \n" +
+                              $"1) Total Meditation - продолжаете медитировать еще 1 ход и восстанавливаете {meditatiaHpRecover * 2} и {meditationManaRecover * 2} так же увеличивает шанс крита на {totalMeditationCritRateBuff}%\n" +
+                              $"2) Hidden Blade - приготавливаетесь к следуйщей атаке, нанося {hiddenBladeDamageBuff} дополнительного урона\n" +
+                              $"3) Wake up - Выход из медитации");
+
+            while (enableGame == true)
             {
-                
-            }
-        }
+                Console.WriteLine($"ДедИнстай - {healthBoss}hp");
+                Console.WriteLine($"Ваше HP - {healthPlayer}, MP {manaPlayer}");
 
-        private void PlayerTurn()
-        {
-            Console.WriteLine("Введите заклинание:");
-            switch (Console.ReadLine())
+                if (isMeditate == false)
+                {
+                    Console.WriteLine("Введите заклинание:");
+                    Console.WriteLine(
+                        $"1) sunlight\n" +
+                        $"2) meditation\n" +
+                        $"3) lightningstrike\n" +
+                        $"4) toxicsmoke");
+                    switch (Console.ReadLine())
+                    {
+                        case "1":
+                            Sunlight();
+                            break;
+                        case "2":
+                            Meditation();
+                            break;
+                        case "3":
+                            Lightningstrike();
+                            break;
+                        case "4":
+                            ToxicSmoke();
+                            break;
+                        default:
+                            Console.WriteLine("Вы не правильно прочитали заклинане, ход пропущен");
+                            break;
+                    }
+                }
+
+                buffDamage = 0;
+                currentCritRate = minCritRate;
+
+                if (isPoisened == true)
+                {
+                    Console.WriteLine("Босс травится!");
+                    smokeLong--;
+                    healthBoss -= smokeTotalDamage;
+                }
+
+                if (smokeLong == 0)
+                {
+                    Console.WriteLine("Босс больше не отравлен!");
+                    isPoisened = false;
+                    smokeLong = smokeMaxLong;
+                }
+
+                if (isMeditate == true)
+                {
+                    isMeditate = false;
+                    Console.WriteLine("Введите заклинание:");
+                    Console.WriteLine(
+                        $"1) Total Meditation\n" +
+                        $"2) Hidden Blade\n" +
+                        $"3) Wake up");
+
+                    switch (Console.ReadLine())
+                    {
+                        case "1":
+                            TotalMeditation();
+                            break;
+                        case "2":
+                            hiddenBlade();
+                            break;
+                        case "3":
+                            isMeditate = false;
+                            break;
+                        default:
+                            Console.WriteLine("Вы не правильно прочитали заклинане, ход пропущен");
+                            break;
+                    }
+                }
+
+                if (isStunned == false)
+                {
+                    Console.WriteLine("Вас Атакуют!");
+                    healthPlayer -= random.Next(bossMinDamage, bossMaxDamage);
+                }
+
+                if (healthBoss <= 0)
+                {
+                    enableGame = false;
+                    Console.WriteLine("Победа!!!");
+                }
+
+                if (healthPlayer <= 0)
+                {
+                    enableGame = false;
+                    Console.WriteLine("Поражение(");
+                }
+
+                isStunned = false;
+            }
+
+            void Sunlight()
             {
-                case "sunlight":
-                    break;
-                case "meditation":
-                    break;
-                case "lightningstrike":
-                    break;
-                case "toxicsmole":
-                    break;
-                default:
-                    break;
+                Console.WriteLine("Враг ослеплен!");
+                isStunned = true;
+                manaPlayer -= sunlightManaCost;
             }
-        }
 
-        private void SunLight()
-        {
-            PlayerTurn();
-            PlayerTurn();
+            void Meditation()
+            {
+                Console.WriteLine("Медитация!");
+                isMeditate = true;
+                healthPlayer = meditatiaHpRecover;
+                healthPlayer = meditationManaRecover;
+            }
+
+            void Lightningstrike()
+            {
+                Console.WriteLine("Удар молнии!");
+                if (random.Next(0, 100) <= currentCritRate)
+                {
+                    Console.WriteLine("Кританул!");
+                    healthBoss -= lightningstrikeDamage * critMultiplier + buffDamage;
+                }
+                else
+                {
+                    healthBoss -= lightningstrikeDamage + buffDamage;
+                }
+
+                isStunned = false;
+            }
+
+            void ToxicSmoke()
+            {
+                Console.WriteLine("Отравленный туман!");
+                if (isStunned = true)
+                {
+                    smokeTotalDamage = smokeDamage * 2;
+                }
+
+                isPoisened = true;
+                smokeTotalDamage = smokeDamage;
+            }
+
+            void TotalMeditation()
+            {
+                healthPlayer += meditatiaHpRecover * 2;
+                manaPlayer += meditationManaRecover * 2;
+                currentCritRate = totalMeditationCritRateBuff;
+                isMeditate = true;
+            }
+
+            void hiddenBlade()
+            {
+                buffDamage = hiddenBladeDamageBuff;
+            }
         }
     }
 }
