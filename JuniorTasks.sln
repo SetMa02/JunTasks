@@ -94,6 +94,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArraySort", "ArraySort\Arra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnderMassive", "UnderMassive\UnderMassive.csproj", "{82173E8B-6ABD-4599-9470-C5DE2D6A7C9D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityMassives", "UnityMassives\UnityMassives.csproj", "{480BBA0D-F672-42CA-A72A-168A8768468E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -288,5 +290,9 @@ Global
 		{82173E8B-6ABD-4599-9470-C5DE2D6A7C9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82173E8B-6ABD-4599-9470-C5DE2D6A7C9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82173E8B-6ABD-4599-9470-C5DE2D6A7C9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{480BBA0D-F672-42CA-A72A-168A8768468E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{480BBA0D-F672-42CA-A72A-168A8768468E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{480BBA0D-F672-42CA-A72A-168A8768468E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{480BBA0D-F672-42CA-A72A-168A8768468E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
