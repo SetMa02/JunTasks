@@ -27,6 +27,8 @@ namespace ArraySort
                     numbers[i] = numbers[index];
                     numbers[index] = buffer;
                 }
+                
+                
             }
             
             foreach (var number in numbers)

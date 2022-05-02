@@ -59,6 +59,11 @@ namespace SdvigMassive
                                 massive[targetId] = buffer1;
                                 buffer1 = buffer2;
                             }
+
+                            if (massive[targetId] == massive[currentId])
+                            {
+                                massive[currentId] = massive[targetId]+1;
+                            }
                         }
                     }
                 }
