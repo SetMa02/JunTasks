@@ -13,6 +13,7 @@ namespace SdvigMassive
             int buffer2 = 0;
             int currentId;
             int targetId;
+            int dubbleFix = 1;
             
             Console.WriteLine("Введите длину массива:");
             if (Int32.TryParse(Console.ReadLine(), out massiveLength))
@@ -62,7 +63,7 @@ namespace SdvigMassive
 
                             if (massive[targetId] == massive[currentId])
                             {
-                                massive[currentId] = massive[targetId]+1;
+                                massive[currentId] = massive[targetId]+dubbleFix;
                             }
                         }
                     }
