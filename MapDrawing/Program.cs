@@ -8,20 +8,22 @@ namespace MapDrawing
         {
             int userScore = 0;
             int userXPosition = 3, userYPosition = 3;
+            int directionX = 0;
+            int directionY = 0;
             int pointToWin = 10;
             bool isExit = false;
             char[,] map =
             {
                 {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
                 {'#', ' ', '!', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
-                {'#', 'X', ' ', 'X', ' ', ' ', ' ', ' ', ' ', ' ', '!', ' ', 'X', '!', '#'},
+                {'#', 'X', ' ', 'X', ' ', ' ', ' ', ' ', ' ', ' ', '!', 'X', ' ', '!', '#'},
                 {'#', ' ', ' ', ' ', ' ', '#', ' ', 'X', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
                 {'#', ' ', '!', ' ', ' ', ' ', ' ', '!', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
                 {'#', ' ', ' ', '#', ' ', '#', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
                 {'#', ' ', ' ', ' ', ' ', '#', 'X', '#', ' ', ' ', '!', ' ', ' ', ' ', '#'},
                 {'#', ' ', '#', ' ', ' ', '#', '#', '#', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
-                {'#', ' ', ' ', 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ', '#'},
-                {'#', ' ', ' ', ' ', ' ', '!', ' ', '#', ' ', 'X', '!', ' ', ' ', ' ', '#'},
+                {'#', ' ', ' ', 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
+                {'#', ' ', ' ', ' ', ' ', '!', ' ', '#', ' ', 'X', '!', 'X', ' ', ' ', '#'},
                 {'#', ' ', '!', ' ', ' ', 'X', ' ', '!', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
                 {'#', 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'},
                 {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
@@ -37,15 +39,20 @@ namespace MapDrawing
                 string direction;
                 
                 DrawMap(map, userScore);
-
-                direction = GetDirection(userXPosition, userYPosition);
                 
-                MoveToDirection(direction, ref userXPosition, ref userYPosition, map);
+                DrawPlayer(userXPosition, userYPosition);
 
-                CollectPoint(ref userXPosition, ref userYPosition, map, ref userScore);
+                GetDirection(out directionX, out directionY, userXPosition, userYPosition);
                 
-                CheckUserPoints(ref isExit, userScore, pointToWin);
+                MoveToDirection( directionX, directionY,ref userXPosition, ref userYPosition, map);
 
+                CollectPoint( userXPosition,  userYPosition, map, ref userScore);
+
+                if (CheckUserPoints(userScore, pointToWin) == true)
+                {
+                    WinGame(ref isExit);
+                }
+                
                 CheckWallCollide(ref userXPosition, ref userYPosition, map, ref isExit);
             }
         }
@@ -68,65 +75,64 @@ namespace MapDrawing
             }
         }
 
-        static string GetDirection(int userXPosition, int userYPosition)
+        static void DrawPlayer(int userXPosition,int userYPosition)
         {
             Console.SetCursorPosition(userXPosition, userYPosition);
             Console.Write("@");
+        }
+
+        static void GetDirection(out int userXposition, out int userYposition, int xPosition,int yPosition)
+        {
+            userXposition = xPosition;
+            userYposition = yPosition;
             
             switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.LeftArrow:
-                    return "left";
+                    userXposition--;
                     break;
                 case ConsoleKey.RightArrow:
-                    return "right";
+                    userXposition++;
                     break;
                 case ConsoleKey.UpArrow:
-                    return "up";
+                   userYposition--;
                     break;
                 case ConsoleKey.DownArrow:
-                    return "down";
+                    userYposition++;
                     break;
             }
-            return null;
         }
 
-        static void MoveToDirection(string direction,ref int userXPosition, ref int userYPosition, char[,] map)
+        static void MoveToDirection(int directionX, int directionY,ref int userXPosition, ref int userYPosition, char[,] map)
         {
-            
-            switch (direction)
+
+            if (map[directionX,directionY] != '#')
             {
-                case "left":
-                    if (map[userYPosition, userXPosition - 1] != '#')
-                        userXPosition--;
-                    break;
-                case "right":
-                    if (map[userYPosition, userXPosition + 1] != '#')
-                        userXPosition++;
-                    break;
-                case "up":
-                    if (map[userYPosition - 1, userXPosition] != '#')
-                        userYPosition--;
-                    break;
-                case "down":
-                    if (map[userYPosition + 1, userXPosition] != '#')
-                        userYPosition++;
-                    break;
+                userXPosition = directionX;
+                userYPosition = directionY;
             }
         }
 
-        static void CheckUserPoints(ref bool isExit, int userScore, int pointsToWin)
+        static bool CheckUserPoints( int userScore, int pointsToWin)
         {
             if (userScore == pointsToWin)
             {
-                Console.SetCursorPosition(20, 1);
-                Console.WriteLine("Вы собрали все элементы");
-                Console.ReadKey();
-                isExit = true;
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        static void CollectPoint(ref int userXPosition, ref int userYPosition, char[,] map,ref int userScore)
+        private static void WinGame(ref bool isExit)
+        {
+            Console.WriteLine("Вы собрали все элементы");
+            Console.ReadKey();
+            isExit = true;
+        }
+
+        static void CollectPoint( int userXPosition,  int userYPosition, char[,] map,ref int userScore)
         {
             if (map[userYPosition, userXPosition] == 'X')
             {

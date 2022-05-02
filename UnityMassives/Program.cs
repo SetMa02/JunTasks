@@ -14,16 +14,9 @@ namespace UnityMassives
 
             List<int> unitedMassive = new List<int>();
             List<int> deleteIndexes = new List<int>();
-
-            foreach (var number in massive1)
-            {
-                unitedMassive.Add(number);
-            }
-
-            foreach (var number in massive2)
-            {
-                unitedMassive.Add(number);
-            }
+            
+            unitedMassive = FillList(massive1, unitedMassive);
+            unitedMassive = FillList(massive2, unitedMassive);
                 
             unitedMassive.Sort();
             
@@ -52,6 +45,17 @@ namespace UnityMassives
             {
                 Console.Write(number+ " ");
             }
+        }
+
+        static List<int> FillList(int[] massive, List<int> numbers)
+        {
+            List<int> newList = numbers;
+            foreach (var number in massive)
+            {
+                newList.Add(number);
+            }
+
+            return newList;
         }
     }
 }
