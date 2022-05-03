@@ -12,7 +12,7 @@ namespace AmnistiaArstotska
 
             aristotskaGovernment.ShowCrimenals();
 
-            aristotskaGovernment.Amnistia();
+            aristotskaGovernment.Amnistia("Антиправительственное");
 
             Console.WriteLine("");
 
@@ -42,10 +42,9 @@ namespace AmnistiaArstotska
             };
         }
 
-        public void Amnistia()
+        public void Amnistia(string crime)
         {
-            List<Criminal> buffer = _criminals.Where(x => x.Crime != "Антиправительственное").ToList();
-            _criminals = buffer;
+            _criminals = _criminals.Where(x => x.Crime != crime).ToList();
         }
 
         public void ShowCrimenals()
