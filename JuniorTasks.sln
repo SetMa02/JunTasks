@@ -98,6 +98,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityMassives", "UnityMassi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Detectives", "Detectives\Detectives.csproj", "{3E75F866-CAA3-487A-B186-18DE541D46F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmnistiaArstotska", "AmnistiaArstotska\AmnistiaArstotska.csproj", "{6D434BF1-D9CC-4C71-825B-11FAD98E8331}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -300,5 +302,9 @@ Global
 		{3E75F866-CAA3-487A-B186-18DE541D46F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E75F866-CAA3-487A-B186-18DE541D46F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E75F866-CAA3-487A-B186-18DE541D46F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D434BF1-D9CC-4C71-825B-11FAD98E8331}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D434BF1-D9CC-4C71-825B-11FAD98E8331}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D434BF1-D9CC-4C71-825B-11FAD98E8331}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D434BF1-D9CC-4C71-825B-11FAD98E8331}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
