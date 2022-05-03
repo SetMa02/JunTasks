@@ -12,8 +12,6 @@ namespace Detectives
         {
             PoliceDataBase policeDataBase = new PoliceDataBase();
 
-            policeDataBase.ShowAllCriminals();
-
             policeDataBase.SearchCriminals();
         }
     }
@@ -21,6 +19,7 @@ namespace Detectives
     class PoliceDataBase
     {
         private List<Criminal> _criminals;
+        private List<Criminal> _result;
 
         public PoliceDataBase()
         {
@@ -42,14 +41,8 @@ namespace Detectives
                 new Criminal("Галкина Анжела Аркадьевна", false, 90, 155, "Славян"),
                 new Criminal("Игнатова Властилина Онисимовна", false, 88, 160, "Тувинец"),
             };
-        }
-
-        public void ShowAllCriminals()
-        {
-            foreach (var criminal in _criminals)
-            {
-                Console.WriteLine($"{_criminals.IndexOf(criminal)}. {criminal.Name}");
-            }
+            
+            ShowCriminals(_criminals);
         }
 
         public void SearchCriminals()
@@ -79,10 +72,14 @@ namespace Detectives
 
                 Console.WriteLine(result.Count);
 
-                foreach (var criminal in result)
-                {
-                    Console.WriteLine(criminal.Name);
-                }
+                ShowCriminals(result);
+            }
+        }
+        private void ShowCriminals(List<Criminal> criminals )
+        {
+            foreach (var criminal in criminals)
+            {
+                Console.WriteLine($"{_criminals.IndexOf(criminal)}. {criminal.Name}");
             }
         }
     }
