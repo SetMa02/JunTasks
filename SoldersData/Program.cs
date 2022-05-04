@@ -9,15 +9,13 @@ namespace SoldersData
         static void Main(string[] args)
         {
             Army army = new Army();
-            
-            army.SoldiersRequest(name, title);
+            army.CreateRequest();
         }
     }
 
     class Army
     {
         private List<Soldier> _soldiers;
-
         public Army()
         {
             _soldiers = new List<Soldier>()
@@ -37,19 +35,21 @@ namespace SoldersData
             Console.WriteLine("");
         }
 
-        public void SoldiersRequest(string name, string title)
+        public void CreateRequest()
         {
-            /*
-             List<Soldier> soldiers = _soldiers.Where(soldier => soldier.Name && soldier.Title).ToList();
-            ShowSoldiers(soldiers);
-            */
+            var result = (from soldier in _soldiers select new {name = soldier.Name, titel = soldier.Title}).ToList();
+            foreach (var soldier in result)
+            {
+                Console.WriteLine($"{result.IndexOf(soldier)}. {soldier.name}, {soldier.titel}");
+            }
         }
+        
 
         private void ShowSoldiers(List<Soldier> soldiers)
         {
             foreach (var soldier in soldiers)
             {
-                Console.WriteLine($"{soldiers.IndexOf(soldier)}. {soldier.Name}, {soldier.Title}");
+                Console.WriteLine($"{soldiers.IndexOf(soldier)}. {soldier.Name}, {soldier.Title}, {soldier.ServiceTime}");
             }
         }
     }
