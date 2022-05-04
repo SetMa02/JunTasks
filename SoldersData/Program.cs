@@ -8,21 +8,17 @@ namespace SoldersData
     {
         static void Main(string[] args)
         {
-            Platoon platoon = new Platoon();
-
-            platoon.CreateRequest();
+            Army army = new Army();
+            army.CreateRequest();
         }
     }
 
-    class Platoon
+    class Army
     {
         private List<Soldier> _soldiers;
-        private List<ArmyData> _armyDatas;
 
-        public Platoon()
+        public Army()
         {
-            _armyDatas = new List<ArmyData>();
-
             _soldiers = new List<Soldier>()
             {
                 new Soldier("Петров Денис", "Прапор", 2),
@@ -42,20 +38,11 @@ namespace SoldersData
 
         public void CreateRequest()
         {
-            foreach (var soldier in _soldiers)
-            {
-                ArmyData armyData = new ArmyData(soldier.Name, soldier.Title);
-                _armyDatas.Add(armyData);
-            }
+            var result = (from soldier in _soldiers select new {soldier.Name, soldier.Title}).ToList();
 
-            ShowArmyData(_armyDatas);
-        }
-
-        private void ShowArmyData(List<ArmyData> armyDatas)
-        {
-            foreach (var armyData in armyDatas)
+            foreach (var soldier in result)
             {
-                Console.WriteLine($"{armyDatas.IndexOf(armyData)}. {armyData.Name}, {armyData.Title}");
+                Console.WriteLine($"{result.IndexOf(soldier)}. {soldier.Name}, {soldier.Title}");
             }
         }
 
@@ -63,24 +50,8 @@ namespace SoldersData
         {
             foreach (var soldier in soldiers)
             {
-                Console.WriteLine(
-                    $"{soldiers.IndexOf(soldier)}. {soldier.Name}, {soldier.Title}, {soldier.ServiceTime}");
+                Console.WriteLine($"{soldiers.IndexOf(soldier)}. {soldier.Name}, {soldier.Title}, {soldier.ServiceTime}");
             }
-        }
-    }
-
-    class ArmyData
-    {
-        private string _name;
-        private string _title;
-
-        public string Name => _name;
-        public string Title => _title;
-
-        public ArmyData(string name, string title)
-        {
-            _name = name;
-            _title = title;
         }
     }
 
