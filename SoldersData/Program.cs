@@ -9,13 +9,8 @@ namespace SoldersData
         static void Main(string[] args)
         {
             Army army = new Army();
-            int mounth;
-            Console.WriteLine("Вводете месяц пребывания солдата: ");
-
-            if (Int32.TryParse(Console.ReadLine(), out mounth))
-            {
-                army.SoldiersRequest(mounth);
-            }
+            
+            army.SoldiersRequest(name, title);
         }
     }
 
@@ -42,10 +37,12 @@ namespace SoldersData
             Console.WriteLine("");
         }
 
-        public void SoldiersRequest(int mounth)
+        public void SoldiersRequest(string name, string title)
         {
-            List<Soldier> soldiers = _soldiers.Where(soldier => soldier.ServiceTime == mounth).ToList();
+            /*
+             List<Soldier> soldiers = _soldiers.Where(soldier => soldier.Name && soldier.Title).ToList();
             ShowSoldiers(soldiers);
+            */
         }
 
         private void ShowSoldiers(List<Soldier> soldiers)

@@ -108,6 +108,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmergincyFood", "EmergincyF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoldersData", "SoldersData\SoldersData.csproj", "{7DB4C64B-AAC9-44A6-82FC-148C244A937A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SquadMerger", "SquadMerger\SquadMerger.csproj", "{AEDA6E5B-425A-43BB-B3E5-2D662F820E76}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -330,5 +332,9 @@ Global
 		{7DB4C64B-AAC9-44A6-82FC-148C244A937A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DB4C64B-AAC9-44A6-82FC-148C244A937A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DB4C64B-AAC9-44A6-82FC-148C244A937A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEDA6E5B-425A-43BB-B3E5-2D662F820E76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEDA6E5B-425A-43BB-B3E5-2D662F820E76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEDA6E5B-425A-43BB-B3E5-2D662F820E76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEDA6E5B-425A-43BB-B3E5-2D662F820E76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
