@@ -86,7 +86,7 @@ namespace Nemochnica
 
         public void ShowPatioentWithDisease(string diseaes)
         {
-            List<Patient> result = _patients.Where(x => x.Diseas == diseaes).ToList();
+            List<Patient> result = _patients.Where(pattient => pattient.Diseas == diseaes).ToList();
             ShowPatients(result);
         }
 
